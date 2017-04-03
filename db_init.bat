@@ -24,7 +24,7 @@ if  error level 0  (
     echo %modulename% image does not exist
 )
 
-docker build -t %imagename% ./database/
+docker build -t %imagename% .\database\
 docker images | find %imagename%
 if  error level 0 (
     echo %modulename% image created
