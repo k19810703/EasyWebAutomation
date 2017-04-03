@@ -42,8 +42,8 @@ LOCK TABLES `T_APPLICATION` WRITE;
 
 INSERT INTO `T_APPLICATION` (`APPID`, `APPNAME`, `APPDETAIL`, `DBDRIVER`, `DBURL`, `DBUSER`, `DBPASSWORD`, `DBSCHEMA`)
 VALUES
-	(676,'Yahoo路線','デモアプリ','com.mysql.jdbc.Driver','jdbc:mysql://localhost:3306/appdb?useUnicode=true&characterEncoding=UTF-8','root','123456',''),
-	(678,'当当网','DEMO用','com.mysql.jdbc.Driver','jdbc:mysql://localhost:3306/appdb?useUnicode=true&characterEncoding=UTF-8','root','123456','');
+	(676,'Yahoo路線','デモアプリ','com.mysql.jdbc.Driver','jdbc:mysql://mysqldocker:3306/appdb?useUnicode=true&characterEncoding=UTF-8','root','123456',''),
+	(678,'当当网','DEMO用','com.mysql.jdbc.Driver','jdbc:mysql://mysqldocker:3306/appdb?useUnicode=true&characterEncoding=UTF-8','root','123456','');
 
 /*!40000 ALTER TABLE `T_APPLICATION` ENABLE KEYS */;
 UNLOCK TABLES;

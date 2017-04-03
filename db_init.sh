@@ -30,6 +30,7 @@ if  docker images | grep -q $imagename ; then
     docker run --name $containername -e MYSQL_ROOT_PASSWORD=123456 -p 3307:3306 -d $imagename
     if  docker ps -a | grep -q $containername ; then
         echo $modulename" container created"
+        echo $modulename" wait 30s for mysql service fully started"
         sleep 30
         docker exec -it webautodb bash init.sh
     else
