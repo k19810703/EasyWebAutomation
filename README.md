@@ -16,6 +16,7 @@ Web自动化测试平台，用户可以用过web的ui来编辑测试用例进行
 
 ### 0.  说明
 本guide基于MAC和Linux的操作来编写的，如果是Windows，请自行替换bash abc.sh为abc.bat
+<br>windows用的batch尚未提供
 
 ### 1.  下载至本地
 有git的情况下
