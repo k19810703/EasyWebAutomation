@@ -1,0 +1,9 @@
+docker stop webautotestagent
+docker stop webautoui
+docker stop webautodb
+docker rm webautotestagent
+docker rm webautoui
+docker rm webautodb
+docker rmi webautotestagentimage
+docker rmi webautouiimage
+docker rmi webautodbimage
