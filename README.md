@@ -61,6 +61,7 @@ docker run -it --name webautoui -v $outputdir:/usr/src/chanceauto/public/output 
 <code>
 bash ui_init.sh
 </code>
+<br>由于网络问题，git clone和npm install可能会失败，多试几次即可
 <Br>注：成功后，请使用浏览器连接 http://localhost 验证部署成功<br>
 通过UI可以事先已经做了一个当当网的demo测试用例<br>
 如果使用自定义端口 http://localhost:yourport
