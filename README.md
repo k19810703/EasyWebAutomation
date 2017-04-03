@@ -26,19 +26,19 @@ git clone https://github.com/k19810703/EasyWebAutomation.git
 1.  下载zip到本地
 2.  解压
 
-### 2. 修改bluemix登录账号和密码
-编辑　./ui/.git-credentials 填写自己的bluemix账号和密码
+### 2.  打开terminal/cmd，并切换到EasyWebAutomation目录
 
-
-### 3.  打开terminal/cmd，并切换到EasyWebAutomation目录
-
+### 3. 添加bluemix登录账号和密码
+<code>
+echo "https://{youid}%40cn.ibm.com:{yourpassword}@hub.jazz.net" > ./ui/.git-credentials
+</code>
 
 ### 4.  部署数据库
 
-数据库用户名root,密码123456，端口3306
-如果想使用自定义密码端口，请打开db_init.sh自行修改<br>
+数据库用户名root,密码123456，端口3307
+如果想使用自定义密码端口或3307端口被占用，请打开db_init.sh自行修改<br>
 <code>
-docker run --name webautodb -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d webautodbimage
+docker run --name webautodb -e MYSQL_ROOT_PASSWORD=123456 -p 3307:3306 -d webautodbimage
 </code>
 
 MAC
