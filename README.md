@@ -13,6 +13,10 @@ Web自动化测试平台，用户可以用过web的ui来编辑测试用例进行
 
 
 ## 部署
+
+### 0.  说明
+本guide基于MAC和Linux的操作来编写的，如果是Windows，请自行替换bash abc.sh为abc.bat
+
 ### 1.  下载至本地
 有git的情况下
 1.  在本地环境创建工作目录workfolder（名字任意）
@@ -41,7 +45,6 @@ echo "https://{youid}%40cn.ibm.com:{yourpassword}@hub.jazz.net" > ./ui/.git-cred
 docker run --name webautodb -e MYSQL_ROOT_PASSWORD=123456 -p 3307:3306 -d webautodbimage
 </code>
 
-MAC
 <code>
 bash db_init.sh
 </code>
