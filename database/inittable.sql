@@ -125,8 +125,8 @@ LOCK TABLES `T_CASEPARAMVALUE` WRITE;
 
 INSERT INTO `T_CASEPARAMVALUE` (`CASEID`, `CASEDETAILID`, `SCENARIOUK`, `ACTIONUK`, `PARAMTYPE`, `PARAMVALUE`)
 VALUES
-	(8,52,14,42,2,'cleartable.txt'),
-	(8,52,15,42,2,'insert.txt'),
+	(8,52,14,42,2,'cleartable.sql'),
+	(8,52,15,42,2,'insert.sql'),
 	(8,53,16,43,2,'http://transit.yahoo.co.jp/?c=0'),
 	(8,54,17,44,2,'東陽町'),
 	(8,54,17,45,2,'品川'),

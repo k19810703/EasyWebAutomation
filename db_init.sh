@@ -27,6 +27,7 @@ fi
 docker build -t $imagename ./database/
 if  docker images | grep -q $imagename ; then
     echo $modulename" image created"
+    #数据库端口3307可自行修改
     docker run --name $containername -e MYSQL_ROOT_PASSWORD=123456 -p 3307:3306 -d $imagename
     if  docker ps -a | grep -q $containername ; then
         echo $modulename" container created"

@@ -30,6 +30,7 @@ fi
 docker build -t $imagename ./ui/
 if  docker images | grep -q $imagename ; then
     echo $modulename" image created"
+    #自定义端口请自行更改80为指定的端口号
     docker run -it --name webautoui -v $outputdir:/usr/src/chanceauto/public/output -v $inputdir:/usr/src/chanceauto/public/input --link webautodb:mysqldocker -p 80:6001 -d webautouiimage
     if  docker ps -a | grep -q $containername ; then
         echo $modulename" container created"

@@ -2,29 +2,28 @@
 Web自动化测试平台，用户可以用过web的ui来编辑测试用例进行自动化测试
 <br>*本guide目前仅有MAC版
 
-## 前提
-1.  安装有docker
-如果没有安装，请自行去https://www.docker.com/取得最新版
-2.  有w3id，并注册过bluemix
-3.  联系 wuhd@cn.ibm.com 添加git权限
-4.  80端口和3307端口未被占用
-
 ## 概要
 按照本说明可以在有docker的环境下启动3个docker，一个自动化测试管理的webui服务，一个数据库（包含需要的table，和2个demo测试用例），一个测试机（ubuntu+firefox）
 
 
-## 部署
+## 部署(本地)
 
-### 0.  说明
+### 0.  说明&前提
 本guide基于MAC和Linux的操作来编写的，如果是Windows，请自行替换bash abc.sh为abc.bat
 <br>windows用的batch尚未提供
+
+前提
+1.  安装有docker
+如果没有安装，请自行去 https://www.docker.com/ 取得最新版
+2.  有w3id，并注册过bluemix
+3.  联系 wuhd@cn.ibm.com 添加git权限
+4.  80端口和3307端口未被占用
 
 ### 1.  下载至本地
 有git的情况下
 1.  在本地环境创建工作目录workfolder（名字任意）
 2.  在terminal/cmd窗口中
-<pre><code>
-cd workfolder
+<pre><code>cd workfolder
 git clone https://github.com/k19810703/EasyWebAutomation.git
 </code></pre>
 
@@ -35,53 +34,113 @@ git clone https://github.com/k19810703/EasyWebAutomation.git
 ### 2.  打开terminal，并切换到EasyWebAutomation目录
 
 ### 3. 添加bluemix登录账号和密码
-<code>
-echo "https://{youid}%40cn.ibm.com:{yourpassword}@hub.jazz.net" > ./ui/.git-credentials
-</code>
+<pre><code>echo "https://{youid}%40cn.ibm.com:{yourpassword}@hub.jazz.net" > ./ui/.git-credentials
+</code></pre>
 
 ### 4.  部署数据库
 
 数据库用户名root,密码123456，端口3307
-如果想使用自定义密码端口或3307端口被占用，请打开db_init.sh自行修改<br>
-<code>
-docker run --name webautodb -e MYSQL_ROOT_PASSWORD=123456 -p 3307:3306 -d webautodbimage
-</code>
-
-<code>
-bash db_init.sh
-</code>
-<Br>注：使用前请先备份所需的数据
+如果想使用自定义密码端口或3307端口被占用，请打开db_init.sh自行修改
+<pre><code>bash db_init.sh
+</code></pre>
+注：使用前请先备份所需的数据
 
 ### 5.  部署WebUI
-如果80端口被占用，请打开ui_init.sh自行修改以下行，把80改成需要的端口<br>
-<code>
-docker run -it --name webautoui -v $outputdir:/usr/src/chanceauto/public/output -v $inputdir:/usr/src/chanceauto/public/input --link webautodb:mysqldocker -p 80:6001 -d webautouiimage
-</code>
-
-<code>
-bash ui_init.sh
-</code>
-<br>由于网络问题，git clone和npm install可能会失败，多试几次即可
+如果80端口被占用，请打开ui_init.sh根据注释适当修改
+<pre><code>bash ui_init.sh
+</code></pre>
+由于网络问题，git clone和npm install可能会失败，多试几次即可
 <Br>注：成功后，请使用浏览器连接 http://localhost 验证部署成功<br>
-通过UI可以事先已经做了一个当当网的demo测试用例<br>
+通过UI可以看到已经做了一个当当网的demo测试用例<br>
 如果使用自定义端口 http://localhost:yourport
 
 ### 6.  部署测试机
 为了方便表示，请打开./testagent/webautotest/config/automation.ini文件修改youname为你想要的名字<br>
-<code>
-bash testagent_init.sh
-</code>
-<Br>注：如需debug，使用vnc客户端连接vnc://localhost:5901,MAC下直接使用safari连接即可,密码secret
+<pre><code>bash testagent_init.sh
+</code></pre>
+注：如需debug，请打开./testagent/Dockerfile根据注释修改，部署完毕后可使用vnc客户端连接vnc://localhost:5901,MAC下直接使用safari连接即可,密码secret
 
 ### 7.  执行测试
-<code>
-bash execute.sh
-</code>
+<pre><code>bash execute.sh
+</code></pre>
 
 ### 8.  清理环境
-<code>
-bash cleanall.sh
-</code>
+<pre><code>bash cleanall.sh
+</code></pre>
 注：如果有数据请先备份，该步处理会清理掉3个容器和镜像，未备份的数据将丢失
+
+## 部署(Bluemix)
+
+### 0.  前提
+1.  请在本地部署成功的前提下做以下部署
+2.  <a href="http://clis.ng.bluemix.net/ui/home.html">bluemix CLI</a> 和 Bluemix Containers Plugin已经安装
+Bluemix Containers Plugin安装命令
+<pre><code>bluemix plugin install IBM-Containers -r Bluemix</code></pre>
+3.  bluemix container相关初始化已完成
+
+### 1.  部署数据库
+1.  tag本地镜像
+<pre><code>docker tag webautodbimage registry.ng.bluemix.net/{your_name_space}/webautodbimage
+</code></pre>
+
+2.  push镜像到bluemix
+<pre><code>bx ic push registry.ng.bluemix.net/{your_name_space}/webautodbimage
+</code></pre>
+
+3. 创建数据库容器
+<pre><code>bx ic run --name webautoudb -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d registry.ng.bluemix.net/{your_name_space}/webautodbimage
+</code></pre>
+
+4.  绑定ip
+<pre><code>bx ic ip-request
+bx ic ip-bind {ipaddress} {containerid}
+</code></pre>
+
+5.  初始化数据库
+请等待数据库服务完全启动完毕后执行初始化，可以使用mysql客户端连接数据库以确认完全启动完毕
+<pre><code>bx ic exec -it webautodb bash init.sh
+</code></pre>
+
+
+### 2.  部署UI
+1.  tag本地镜像
+<pre><code>docker tag webautouiimage registry.ng.bluemix.net/{your_name_space}/webautouiimage
+</code></pre>
+
+2.  push镜像到bluemix
+<pre><code>bx ic push registry.ng.bluemix.net/{your_name_space}/webautouiimage
+</code></pre>
+
+3.  请求volume
+<pre><code>bx ic volume-create webautooutput
+bx ic volume-create webautoinput
+</code></pre>
+
+4. 创建UI容器
+<pre><code>bx ic run -it --name webautoui -v webautooutput:/usr/src/chanceauto/public/output -v webautoinput:/usr/src/chanceauto/public/input --link webautodb:mysqldocker -p 6001:6001 -d registry.ng.bluemix.net/mycontainter/webautouiimage
+</code></pre>
+
+5.  绑定ip
+<pre><code>bx ic ip-request
+bx ic ip-bind {ipaddress} {containerid}
+</code></pre>
+注：成功后，请使用浏览器连接 http://ipaddress:6001 验证部署成功<br>
+
+### 3.  部署测试机
+1.  tag本地镜像
+<pre><code>docker tag webautotestagentimage registry.ng.bluemix.net/{your_name_space}/webautotestagentimage
+</code></pre>
+
+2.  push镜像到bluemix
+<pre><code>bx ic push registry.ng.bluemix.net/{your_name_space}/webautotestagentimage
+</code></pre>
+
+3. 创建测试机容器
+<pre><code>bx ic run --name webautotestagent -d -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/mycontainter/webautotestagentimage
+</code></pre>
+
+4. 执行测试
+<pre><code>bx ic exec webautotestagent bash /usr/src/executetest.sh
+</code></pre>
 
 <br><br><br>任何问题，改进建议等请联系wuhd@cn.ibm.com
