@@ -9,8 +9,7 @@ Web自动化测试平台，用户可以用过web的ui来编辑测试用例进行
 ## 部署(本地)
 
 ### 0.  说明&前提
-本guide基于MAC和Linux的操作来编写的，如果是Windows，请自行替换bash abc.sh为abc.bat
-<br>windows用的batch尚未提供
+本guide基于MAC和Linux的操作来编写的
 
 前提
 1.  安装有docker
@@ -22,7 +21,7 @@ Web自动化测试平台，用户可以用过web的ui来编辑测试用例进行
 ### 1.  下载至本地
 有git的情况下
 1.  在本地环境创建工作目录workfolder（名字任意）
-2.  在terminal/cmd窗口中
+2.  在terminal窗口中
 <pre><code>cd workfolder
 git clone https://github.com/k19810703/EasyWebAutomation.git
 </code></pre>
@@ -84,7 +83,7 @@ Bluemix Containers Plugin安装命令
 </code></pre>
 
 2.  push镜像到bluemix
-<pre><code>bx ic push registry.ng.bluemix.net/{your_name_space}/webautodbimage
+<pre><code>docker push registry.ng.bluemix.net/{your_name_space}/webautodbimage
 </code></pre>
 
 3. 创建数据库容器
@@ -108,7 +107,7 @@ bx ic ip-bind {ipaddress} {containerid}
 </code></pre>
 
 2.  push镜像到bluemix
-<pre><code>bx ic push registry.ng.bluemix.net/{your_name_space}/webautouiimage
+<pre><code>docker push registry.ng.bluemix.net/{your_name_space}/webautouiimage
 </code></pre>
 
 3.  请求volume
@@ -132,7 +131,7 @@ bx ic ip-bind {ipaddress} {containerid}
 </code></pre>
 
 2.  push镜像到bluemix
-<pre><code>bx ic push registry.ng.bluemix.net/{your_name_space}/webautotestagentimage
+<pre><code>docker push registry.ng.bluemix.net/{your_name_space}/webautotestagentimage
 </code></pre>
 
 3. 创建测试机容器
