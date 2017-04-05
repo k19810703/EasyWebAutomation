@@ -9,4 +9,12 @@ ADD webautotest /usr/src/
 RUN cd /usr/src/ \
     && mkdir input \
     && mkdir output
+ENV LANGUAGE en_US.UTF-8
+ENV LANG en_US.UTF-8
+RUN locale-gen en_US.UTF-8 \
+  && dpkg-reconfigure --frontend noninteractive locales \
+  && apt-get update -qqy \
+  && apt-get -qqy --no-install-recommends install \
+    language-pack-en \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 VOLUME ["/usr/src/output","/usr/src/input"]

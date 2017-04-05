@@ -1,7 +1,8 @@
 FROM node:6.10.0
 ADD .git-credentials /root/
 RUN cd /usr/src/ \
-    && git config --global credential.helper cache \
+#    && git rm --cache \
+#    && git config --global credential.helper cache \
     && git config --global credential.helper store \
     && git clone https://hub.jazz.net/git/ibmcyn/chanceauto
 ADD startapp.sh /

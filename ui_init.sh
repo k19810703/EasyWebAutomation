@@ -9,7 +9,7 @@ echo "containername:"$containername
 imagename=$containername"image"
 echo "imagename:"$imagename
 
-if  docker ps -a | grep -q $imagename ; then
+if  docker ps -a | grep -q $containername ; then
     echo $modulename" container exist";
     docker stop $containername
     echo $modulename" container stoped"
