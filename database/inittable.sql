@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.7.17)
 # データベース: autotable
-# 作成時刻: 2017-03-31 06:30:42 +0000
+# 作成時刻: 2017-04-06 04:45:33 +0000
 # ************************************************************
 
 
@@ -202,6 +202,30 @@ VALUES
 UNLOCK TABLES;
 
 
+# テーブルのダンプ T_EXECUTEFLAG
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `T_EXECUTEFLAG`;
+
+CREATE TABLE `T_EXECUTEFLAG` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `FLAG` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `T_EXECUTEFLAG` WRITE;
+/*!40000 ALTER TABLE `T_EXECUTEFLAG` DISABLE KEYS */;
+
+INSERT INTO `T_EXECUTEFLAG` (`id`, `FLAG`)
+VALUES
+	(1,0),
+	(2,1),
+	(3,1);
+
+/*!40000 ALTER TABLE `T_EXECUTEFLAG` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # テーブルのダンプ T_EXECUTIONENV
 # ------------------------------------------------------------
 
@@ -219,7 +243,7 @@ LOCK TABLES `T_EXECUTIONENV` WRITE;
 
 INSERT INTO `T_EXECUTIONENV` (`PLANID`, `OS`, `BROWSER`)
 VALUES
-	(6,'Linux','Firefox');
+	(1,'Linux','Firefox');
 
 /*!40000 ALTER TABLE `T_EXECUTIONENV` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -317,7 +341,6 @@ VALUES
 	(117,676,'Page001','出発','インプットボックス',0,'Xpath','.//*[@id=\'sfrom\']',''),
 	(118,676,'Page001','日時指定種類','オプションボタン',0,'Xpath','.//*[@id=\'default\']/dd/ul/li/label[text()=\"%param1%\"]','日時指定種類(出発/到着/始発/終電/指定なし)'),
 	(123,678,'Page01','搜索关键字栏','Inputbox',0,'Xpath','.//*[@id=\'key_S\']',''),
-	(124,678,'Page01','搜索按钮','Button',0,'Xpath','.//*[@id=\'form_search_new\']/input[9]',''),
 	(125,678,'Page02','价格(by书名)','Text',0,'Xpath','.//*/p[1]/a[contains(@title,\'%param1%\')]/ancestor::li/p[@class=\'price\']/span[1]','书名'),
 	(126,678,'Page02','商品类型','OptionButton',0,'Xpath','.//*[@id=\'J_tab\']/a/li[text()=\'%param1%\']','类型(全部商品/当当自营)');
 
