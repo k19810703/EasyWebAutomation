@@ -138,19 +138,23 @@ bx ic volume-create webautoinput
 
 ### 3.  部署测试机
 1.  tag本地镜像
-<pre><code>docker tag webautotestagentimage registry.ng.bluemix.net/{your_name_space}/webautotestagentimage
+<pre><code>docker tag webautota_firefox_image registry.ng.bluemix.net/{your_name_space}/webautota_firefox_image
+docker tag webautota_chrome_image registry.ng.bluemix.net/{your_name_space}/webautota_chrome_image
 </code></pre>
 
 2.  push镜像到bluemix
-<pre><code>docker push registry.ng.bluemix.net/{your_name_space}/webautotestagentimage
+<pre><code>docker push registry.ng.bluemix.net/{your_name_space}/webautota_firefox_image
+docker push registry.ng.bluemix.net/{your_name_space}/webautota_chrome_image
 </code></pre>
 
 3. 创建测试机容器
-<pre><code>bx ic run --name webautotestagent -d -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/{your_name_space}/webautotestagentimage
+<pre><code>bx ic run --name webautota_firefox -d -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/{your_name_space}/webautota_firefox_image
+bx ic run --name webautota_chrome -d -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/{your_name_space}/webautota_chrome_image
 </code></pre>
 
 4. 启动监听job
-<pre><code>bx ic exec -d webautotestagent bash /usr/src/selfexecute.sh
+<pre><code>bx ic exec -d webautota_firefox bash /usr/src/selfexecute.sh
+bx ic exec -d webautota_chrome bash /usr/src/selfexecute.sh
 </code></pre>
 
 <br><br><br>任何问题，改进建议等请联系wuhd@cn.ibm.com
