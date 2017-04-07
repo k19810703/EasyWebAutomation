@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.7.17)
 # データベース: autotable
-# 作成時刻: 2017-04-06 04:45:33 +0000
+# 作成時刻: 2017-04-07 09:45:32 +0000
 # ************************************************************
 
 
@@ -209,18 +209,20 @@ DROP TABLE IF EXISTS `T_EXECUTEFLAG`;
 
 CREATE TABLE `T_EXECUTEFLAG` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) DEFAULT NULL,
   `FLAG` int(1) DEFAULT NULL,
+  `Active` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `T_EXECUTEFLAG` WRITE;
 /*!40000 ALTER TABLE `T_EXECUTEFLAG` DISABLE KEYS */;
 
-INSERT INTO `T_EXECUTEFLAG` (`id`, `FLAG`)
+INSERT INTO `T_EXECUTEFLAG` (`id`, `username`, `FLAG`, `Active`)
 VALUES
-	(1,0),
-	(2,1),
-	(3,1);
+	(1,'cloud_agent1',0,1),
+	(2,'cloud_agent2',0,1),
+	(3,'cloud',0,0);
 
 /*!40000 ALTER TABLE `T_EXECUTEFLAG` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -243,7 +245,9 @@ LOCK TABLES `T_EXECUTIONENV` WRITE;
 
 INSERT INTO `T_EXECUTIONENV` (`PLANID`, `OS`, `BROWSER`)
 VALUES
-	(1,'Linux','Firefox');
+	(1,'Linux','Chrome'),
+	(1,'Linux','Firefox'),
+	(6,'Linux','Firefox');
 
 /*!40000 ALTER TABLE `T_EXECUTIONENV` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -296,8 +300,8 @@ LOCK TABLES `T_EXECUTIONPLANMAIN` WRITE;
 
 INSERT INTO `T_EXECUTIONPLANMAIN` (`PLANID`, `APPID`, `PLANMEMO`, `NEXTPLANDATE`, `NEXTPLANTIME`, `LASTEXECUTEDATE`, `LASTEXECUTETIME`, `NOTIFYEMAILADDRESS`, `ExecuteFlag`)
 VALUES
-	(1,676,'日本語デモ実行','','','','','',NULL),
-	(6,678,'中文demo','','','','','',NULL);
+	(1,676,'日本語デモ実行','','','','','',1),
+	(6,678,'中文demo','','','','','',0);
 
 /*!40000 ALTER TABLE `T_EXECUTIONPLANMAIN` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -326,23 +330,24 @@ LOCK TABLES `T_OBJECT` WRITE;
 
 INSERT INTO `T_OBJECT` (`OBJECTID`, `APPID`, `PAGEID`, `OBJECTNAME`, `OBJECTTYPE`, `INFRAME`, `IDENTIFIER`, `IDENTIFYKEY`, `PARAMNAME`)
 VALUES
-	(2,676,'Page001','到着','インプットボックス',0,'Xpath','.//*[@id=\'sto\']',''),
-	(103,676,'Page001','日時指定・年','ドロップダウン',0,'Xpath','.//*[@id=\'y\']',''),
-	(104,676,'Page001','日時指定・月','ドロップダウン',0,'Xpath','.//*[@id=\'m\']',''),
-	(105,676,'Page001','日時指定・日','ドロップダウン',0,'Xpath','.//*[@id=\'d\']',''),
-	(106,676,'Page001','日時指定・時間','ドロップダウン',0,'Xpath','.//*[@id=\'hh\']',''),
-	(107,676,'Page001','日時指定・分','ドロップダウン',0,'Xpath','.//*[@id=\'mm\']',''),
-	(109,676,'Page001','運賃種別','オプションボタン',0,'Xpath','.//*[@id=\'mdRouteSearch\']/div[2]/form/div/dl[2]/dd/ul/li/label[text()=\"%param1%\"]','運賃種別(ICカード優先/現金（きっぷ）優先)'),
-	(110,676,'Page001','検索','ボタン',0,'Xpath','.//*[@id=\'searchModuleSubmit\']',''),
-	(111,676,'Page002','タイトル(検索対象ルート)','テキスト',0,'Xpath','.//*[@class=\'labelSearchResult\']/h1',''),
-	(113,676,'Page002','所用時間(ルート名指定)','テキスト',0,'Xpath','.//*[@id=\'rsltlst\']/li/dl/dt/a[text()=\'%param1%\']/ancestor::dl//dd/ul/li[1]/span[@class=\'small\']','ルート名(ルート1/ルート2/ルート3)'),
-	(114,676,'Page002','ソート順','オプションボタン',0,'Xpath','.//*[@id=\'tabflt\']/li/a/span[text()=\'%param1%\']','ソート順(到着時刻順/乗換回数順/料金の安い順)'),
-	(115,676,'Page002','乗換回数(ルート名指定)','テキスト',9,'Xpath','.//*[@id=\'rsltlst\']/li/dl/dt/a[text()=\'%param1%\']/ancestor::dl/dd/ul/li[3]/span[@class=\'mark\']','ルート名(ルート1/ルート2/ルート3)'),
-	(117,676,'Page001','出発','インプットボックス',0,'Xpath','.//*[@id=\'sfrom\']',''),
-	(118,676,'Page001','日時指定種類','オプションボタン',0,'Xpath','.//*[@id=\'default\']/dd/ul/li/label[text()=\"%param1%\"]','日時指定種類(出発/到着/始発/終電/指定なし)'),
+	(2,676,'Page001','到着','Inputbox',0,'Xpath','.//*[@id=\'sto\']',''),
+	(103,676,'Page001','日時指定・年','Dropdown',0,'Xpath','.//*[@id=\'y\']',''),
+	(104,676,'Page001','日時指定・月','Dropdown',0,'Xpath','.//*[@id=\'m\']',''),
+	(105,676,'Page001','日時指定・日','Dropdown',0,'Xpath','.//*[@id=\'d\']',''),
+	(106,676,'Page001','日時指定・時間','Dropdown',0,'Xpath','.//*[@id=\'hh\']',''),
+	(107,676,'Page001','日時指定・分','Dropdown',0,'Xpath','.//*[@id=\'mm\']',''),
+	(109,676,'Page001','運賃種別','OptionButton',0,'Xpath','.//*[@id=\'mdRouteSearch\']/div[2]/form/div/dl[2]/dd/ul/li/label[text()=\"%param1%\"]','運賃種別(ICカード優先/現金（きっぷ）優先)'),
+	(110,676,'Page001','検索','Button',0,'Xpath','.//*[@id=\'searchModuleSubmit\']',''),
+	(111,676,'Page002','タイトル(検索対象ルート)','Text',0,'Xpath','.//*[@class=\'labelSearchResult\']/h1',''),
+	(113,676,'Page002','所用時間(ルート名指定)','Text',0,'Xpath','.//*[@id=\'rsltlst\']/li/dl/dt/a[text()=\'%param1%\']/ancestor::dl//dd/ul/li[1]/span[@class=\'small\']','ルート名(ルート1/ルート2/ルート3)'),
+	(114,676,'Page002','ソート順','OptionButton',0,'Xpath','.//*[@id=\'tabflt\']/li/a/span[text()=\'%param1%\']','ソート順(到着時刻順/乗換回数順/料金の安い順)'),
+	(115,676,'Page002','乗換回数(ルート名指定)','Text',9,'Xpath','.//*[@id=\'rsltlst\']/li/dl/dt/a[text()=\'%param1%\']/ancestor::dl/dd/ul/li[3]/span[@class=\'mark\']','ルート名(ルート1/ルート2/ルート3)'),
+	(117,676,'Page001','出発','Inputbox',0,'Xpath','.//*[@id=\'sfrom\']',''),
+	(118,676,'Page001','日時指定種類','OptionButton',0,'Xpath','.//*[@id=\'default\']/dd/ul/li/label[text()=\"%param1%\"]','日時指定種類(出発/到着/始発/終電/指定なし)'),
 	(123,678,'Page01','搜索关键字栏','Inputbox',0,'Xpath','.//*[@id=\'key_S\']',''),
 	(125,678,'Page02','价格(by书名)','Text',0,'Xpath','.//*/p[1]/a[contains(@title,\'%param1%\')]/ancestor::li/p[@class=\'price\']/span[1]','书名'),
-	(126,678,'Page02','商品类型','OptionButton',0,'Xpath','.//*[@id=\'J_tab\']/a/li[text()=\'%param1%\']','类型(全部商品/当当自营)');
+	(126,678,'Page02','商品类型','OptionButton',0,'Xpath','.//*[@id=\'J_tab\']/a/li[text()=\'%param1%\']','类型(全部商品/当当自营)'),
+	(127,678,'Page01','搜索按钮','Button',0,'Xpath','.//*[@id=\'form_search_new\']/input[9]','');
 
 /*!40000 ALTER TABLE `T_OBJECT` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -415,9 +420,9 @@ VALUES
 	(57,99,1,'SQL2CSV','テーブルAダンプ',0,'ダンプsql'),
 	(64,104,1,'OpenURL','打开当当网',0,'url'),
 	(65,105,1,'Input','搜索指定书名',123,'搜索关键字'),
-	(66,105,2,'Click','按搜索按钮',124,''),
+	(66,105,2,'Click','按搜索按钮',127,''),
 	(67,106,1,'Click','指定搜索结果类别',126,''),
-	(68,107,1,'Verify','确认书的价格',125,'价格(期待值)');
+	(68,107,1,'Verify','验证书的价格',125,'价格(期待值)');
 
 /*!40000 ALTER TABLE `T_PAGEACTION` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -449,7 +454,7 @@ VALUES
 	(104,678,'Page01','打开当当网'),
 	(105,678,'Page01','搜索书名'),
 	(106,678,'Page02','指定搜索结果类型'),
-	(107,678,'Page02','确认指定书名的价格');
+	(107,678,'Page02','验证指定书名的价格');
 
 /*!40000 ALTER TABLE `T_PAGEACTIONMAIN` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -9,6 +9,7 @@ ADD startapp.sh /
 ADD mysql_util.js /usr/src/chanceauto/util/
 ADD package.json /usr/src/chanceauto/
 RUN cd /usr/src/chanceauto \
+    && rm /root/.git-credentials \
     && rm -rf input \
     && rm -rf output \
     && mkdir input \

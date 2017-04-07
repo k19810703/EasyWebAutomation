@@ -3,7 +3,7 @@ Web自动化测试平台，用户可以用过web的ui来编辑测试用例进行
 <br>*本guide目前仅有MAC版
 
 ## 概要
-按照本说明可以在有docker的环境下启动3个docker，一个自动化测试管理的webui服务，一个数据库（包含需要的table，和2个demo测试用例），一个测试机（ubuntu+firefox）
+按照本说明可以在有docker的环境下启动3个docker，一个自动化测试管理的webui服务，一个数据库（包含需要的table，和2个demo测试用例），二个测试机（ubuntu+firefox，ubuntu+chrome）
 
 
 ## 部署(本地)
@@ -54,9 +54,13 @@ git clone https://github.com/k19810703/EasyWebAutomation.git
 如果使用自定义端口 http://localhost:yourport
 
 ### 6.  部署测试机
-为了方便表示，请打开./testagent/webautotest/config/automation.ini文件修改youname为你想要的名字<br>
-<pre><code>bash testagent_init.sh
+firefox
+<pre><code>bash testagent_init.sh firefox
 </code></pre>
+
+<pre><code>bash testagent_init.sh chrome
+</code></pre>
+
 注：如需debug，请打开./testagent/Dockerfile根据注释修改，部署完毕后可使用vnc客户端连接vnc://localhost:5901,MAC下直接使用safari连接即可,密码secret
 
 ### 7.  执行测试
@@ -91,8 +95,17 @@ Bluemix Containers Plugin安装命令
 </code></pre>
 
 4.  绑定ip
+
+如果已经有ip
+<pre><code>bx ic ips
+</code></pre>
+
+如果没有，request一个
 <pre><code>bx ic ip-request
-bx ic ip-bind {ipaddress} {containerid}
+</code></pre>
+
+绑定ip
+<pre><code>bx ic ip-bind {ipaddress} {containerid}
 </code></pre>
 
 5.  初始化数据库
@@ -120,9 +133,7 @@ bx ic volume-create webautoinput
 </code></pre>
 
 5.  绑定ip
-<pre><code>bx ic ip-request
-bx ic ip-bind {ipaddress} {containerid}
-</code></pre>
+参考数据库部分
 注：成功后，请使用浏览器连接 http://ipaddress:6001 验证部署成功<br>
 
 ### 3.  部署测试机
@@ -135,11 +146,11 @@ bx ic ip-bind {ipaddress} {containerid}
 </code></pre>
 
 3. 创建测试机容器
-<pre><code>bx ic run --name webautotestagent -d -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/mycontainter/webautotestagentimage
+<pre><code>bx ic run --name webautotestagent -d -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/{your_name_space}/webautotestagentimage
 </code></pre>
 
-4. 执行测试
-<pre><code>bx ic exec webautotestagent bash /usr/src/executetest.sh
+4. 启动监听job
+<pre><code>bx ic exec -d webautotestagent bash /usr/src/selfexecute.sh
 </code></pre>
 
 <br><br><br>任何问题，改进建议等请联系wuhd@cn.ibm.com
