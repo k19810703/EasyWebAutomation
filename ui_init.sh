@@ -27,7 +27,7 @@ else
     echo $modulename" image does not exist";
 fi
 
-docker build -t $imagename ./ui/
+docker build -t $imagename --no-cache ./ui/
 if  docker images | grep -q $imagename ; then
     echo $modulename" image created"
     #自定义端口请自行更改80为指定的端口号

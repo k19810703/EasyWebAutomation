@@ -54,17 +54,29 @@ git clone https://github.com/k19810703/EasyWebAutomation.git
 如果使用自定义端口 http://localhost:yourport
 
 ### 6.  部署测试机
-firefox
-<pre><code>bash testagent_init.sh firefox
+
+第一次使用时：
+
+自动执行（会响应web ui上的Execute test按钮）
+<pre><code>bash autoagent_init.sh firefox cloud_agent1
+bash testagent_init.sh chrome cloud_agent2
 </code></pre>
 
-<pre><code>bash testagent_init.sh chrome
+如果测试机image已经存在，即使用以下命令
+<pre><code>docker images
+</code></pre>
+时，
+
+
+手动执行机
+<pre><code>bash manualagent_init.sh firefox/chrome agentname
 </code></pre>
 
-注：如需debug，请打开./testagent/Dockerfile根据注释修改，部署完毕后可使用vnc客户端连接vnc://localhost:5901,MAC下直接使用safari连接即可,密码secret
 
 ### 7.  执行测试
-<pre><code>bash execute.sh
+通过web ui的plan界面的execute test按钮来执行测试,测试会被在自动执行测试机上运行
+或者通过以下命令在指定手动执行机上运行
+<pre><code>bash execute.sh firefox/chrome agentname
 </code></pre>
 
 ### 8.  清理环境

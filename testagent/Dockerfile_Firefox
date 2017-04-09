@@ -1,0 +1,20 @@
+#debug模式
+#FROM selenium/standalone-firefox-debug:2.52.0
+#普通模式
+FROM selenium/standalone-firefox:2.52.0
+USER root
+RUN apt-get update \
+ && apt-get install -y --force-yes --no-install-recommends fonts-wqy-microhei ttf-wqy-zenhei
+ADD ./testagent/webautotest /usr/src/
+RUN cd /usr/src/ \
+    && mkdir input \
+    && mkdir output
+ENV LANGUAGE en_US.UTF-8
+ENV LANG en_US.UTF-8
+RUN locale-gen en_US.UTF-8 \
+  && dpkg-reconfigure --frontend noninteractive locales \
+  && apt-get update -qqy \
+  && apt-get -qqy --no-install-recommends install \
+    language-pack-en \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+VOLUME ["/usr/src/output","/usr/src/input"]
