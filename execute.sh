@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker exec webautotestagent bash /usr/src/executetest.sh
+docker exec $1 bash /usr/src/executetest.sh

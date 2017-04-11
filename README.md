@@ -58,26 +58,28 @@ git clone https://github.com/k19810703/EasyWebAutomation.git
 第一次使用时：
 
 自动执行（会响应web ui上的Execute test按钮）
-<pre><code>bash autoagent_init.sh firefox cloud_agent1
-bash testagent_init.sh chrome cloud_agent2
+<pre><code>bash autoagent_init.sh Firefox cloud_agent1
+bash testagent_init.sh Chrome cloud_agent2
 </code></pre>
+自动测试机的时候的话请使用以上2个命令，参数不要改
 
 如果测试机image已经存在，即使用以下命令
 <pre><code>docker images
 </code></pre>
-时，
-
-
-手动执行机
-<pre><code>bash manualagent_init.sh firefox/chrome agentname
+时，<br>
+webautota_firefox_image<br>
+webautota_chrome_image<br>
+存在的情况下无需重新build镜像，最后加上NoBuild参数<br>
+<pre><code>bash autoagent_init.sh Firefox/Chrome agentname NoBuild
 </code></pre>
 
 
 ### 7.  执行测试
 通过web ui的plan界面的execute test按钮来执行测试,测试会被在自动执行测试机上运行
 或者通过以下命令在指定手动执行机上运行
-<pre><code>bash execute.sh firefox/chrome agentname
+<pre><code>bash execute.sh firefox/chrome {agentname}
 </code></pre>
+agentname 可以通过docker ps来查找
 
 ### 8.  清理环境
 <pre><code>bash cleanall.sh
@@ -141,7 +143,7 @@ bx ic volume-create webautoinput
 </code></pre>
 
 4. 创建UI容器
-<pre><code>bx ic run -it --name webautoui -v webautooutput:/usr/src/chanceauto/public/output -v webautoinput:/usr/src/chanceauto/public/input --link webautodb:mysqldocker -p 6001:6001 -d registry.ng.bluemix.net/mycontainter/webautouiimage
+<pre><code>bx ic run -it --name webautoui -v webautooutput:/usr/src/chanceauto/public/output -v webautoinput:/usr/src/chanceauto/public/input --link webautodb:mysqldocker -p 6001:6001 -d registry.ng.bluemix.net/{your_name_space}/webautouiimage
 </code></pre>
 
 5.  绑定ip
@@ -160,13 +162,13 @@ docker push registry.ng.bluemix.net/{your_name_space}/webautota_chrome_image
 </code></pre>
 
 3. 创建测试机容器
-<pre><code>bx ic run --name webautota_firefox -d -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/{your_name_space}/webautota_firefox_image
-bx ic run --name webautota_chrome -d -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/{your_name_space}/webautota_chrome_image
+<pre><code>bx ic run --name firefox_cloud_agent1 -d -e "agentname=cloud_agent1" -e "testbrowser=Firefox" -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/{your_name_space}/webautota_firefox_image
+bx ic run --name chrome_cloud_agent2 -d -e "agentname=cloud_agent2" -e "testbrowser=Chrome" -v webautooutput:/usr/src/output -v webautoinput:/usr/src/input --link webautodb:mysqldocker registry.ng.bluemix.net/{your_name_space}/webautota_chrome_image
 </code></pre>
 
 4. 启动监听job
-<pre><code>bx ic exec -d webautota_firefox bash /usr/src/selfexecute.sh
-bx ic exec -d webautota_chrome bash /usr/src/selfexecute.sh
+<pre><code>bx ic exec -d firefox_cloud_agent1 bash /usr/src/selfexecute.sh
+bx ic exec -d chrome_cloud_agent2 bash /usr/src/selfexecute.sh
 </code></pre>
 
 <br><br><br>任何问题，改进建议等请联系wuhd@cn.ibm.com

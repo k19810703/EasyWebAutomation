@@ -17,11 +17,14 @@ if [ ! $2 ];  then
     exit 1;
 fi
 
-if [${agentname}=='cloud_agent1'] || [${agentname}=='cloud_agent2'];then
-        autoagent="true"
+if [ ${agentname} == 'cloud_agent1' ] ; then
+    autoagent=true
+elif [ ${agentname} == 'cloud_agent2' ] ;then
+    autoagent='true'
+else
+    autoagent='false'
 fi
-echo $autoagent
-
+echo "auto execute agent:"${autoagent};
 
 if [ ! $3 ];  then
     createcontaineronly="false"
@@ -85,7 +88,7 @@ if  docker images | grep -q ${imagename} ; then
     docker run --name ${containername} -d -e "agentname=${agentname}" -e "testbrowser=${browser}" -v ${outputdir}:/usr/src/output -v ${inputdir}:/usr/src/input --link webautodb:mysqldocker ${imagename}
     if  docker ps -a | grep -q ${containername} ; then
         echo "test agent container created"
-        if $(autoagent)=="true"; then
+        if [ ${autoagent} == 'true' ]; then
             sleep 5
             docker exec -d ${containername} bash /usr/src/selfexecute.sh
             echo "lisenning shell started"
