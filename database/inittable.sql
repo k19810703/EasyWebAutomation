@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.7.17)
 # データベース: autotable
-# 作成時刻: 2017-04-07 09:45:32 +0000
+# 作成時刻: 2017-04-19 06:24:42 +0000
 # ************************************************************
 
 
@@ -166,16 +166,16 @@ DROP TABLE IF EXISTS `T_CONFIG`;
 
 CREATE TABLE `T_CONFIG` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `ConfigType` char(14) NOT NULL,
-  `ConfigOrder` int(10) NOT NULL,
-  `ConfigName` varchar(50) NOT NULL,
+  `CONFIGTYPE` char(14) NOT NULL DEFAULT '',
+  `CONFIGORDER` int(10) NOT NULL,
+  `CONFIGNAME` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `T_CONFIG` WRITE;
 /*!40000 ALTER TABLE `T_CONFIG` DISABLE KEYS */;
 
-INSERT INTO `T_CONFIG` (`id`, `ConfigType`, `ConfigOrder`, `ConfigName`)
+INSERT INTO `T_CONFIG` (`id`, `CONFIGTYPE`, `CONFIGORDER`, `CONFIGNAME`)
 VALUES
 	(1,'ActionList',1,'OpenURL'),
 	(2,'ActionList',2,'Input'),
@@ -209,16 +209,16 @@ DROP TABLE IF EXISTS `T_EXECUTEFLAG`;
 
 CREATE TABLE `T_EXECUTEFLAG` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL,
+  `USERNAME` varchar(50) DEFAULT NULL,
   `FLAG` int(1) DEFAULT NULL,
-  `Active` int(1) DEFAULT NULL,
+  `ACTIVE` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `T_EXECUTEFLAG` WRITE;
 /*!40000 ALTER TABLE `T_EXECUTEFLAG` DISABLE KEYS */;
 
-INSERT INTO `T_EXECUTEFLAG` (`id`, `username`, `FLAG`, `Active`)
+INSERT INTO `T_EXECUTEFLAG` (`id`, `USERNAME`, `FLAG`, `ACTIVE`)
 VALUES
 	(1,'cloud_agent1',0,1),
 	(2,'cloud_agent2',0,1),
@@ -286,19 +286,19 @@ CREATE TABLE `T_EXECUTIONPLANMAIN` (
   `PLANID` int(4) NOT NULL AUTO_INCREMENT,
   `APPID` int(4) DEFAULT NULL,
   `PLANMEMO` varchar(250) DEFAULT NULL,
-  `NEXTPLANDATE` char(8) DEFAULT NULL,
-  `NEXTPLANTIME` char(9) DEFAULT NULL,
-  `LASTEXECUTEDATE` char(8) DEFAULT NULL,
-  `LASTEXECUTETIME` char(9) DEFAULT NULL,
-  `NOTIFYEMAILADDRESS` char(200) DEFAULT NULL,
-  `ExecuteFlag` int(1) DEFAULT NULL,
+  `NEXTPLANDATE` varchar(8) DEFAULT NULL,
+  `NEXTPLANTIME` varchar(9) DEFAULT NULL,
+  `LASTEXECUTEDATE` varchar(8) DEFAULT NULL,
+  `LASTEXECUTETIME` varchar(9) DEFAULT NULL,
+  `NOTIFYEMAILADDRESS` varchar(200) DEFAULT NULL,
+  `EXECUTEFLAG` int(1) DEFAULT NULL,
   PRIMARY KEY (`PLANID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `T_EXECUTIONPLANMAIN` WRITE;
 /*!40000 ALTER TABLE `T_EXECUTIONPLANMAIN` DISABLE KEYS */;
 
-INSERT INTO `T_EXECUTIONPLANMAIN` (`PLANID`, `APPID`, `PLANMEMO`, `NEXTPLANDATE`, `NEXTPLANTIME`, `LASTEXECUTEDATE`, `LASTEXECUTETIME`, `NOTIFYEMAILADDRESS`, `ExecuteFlag`)
+INSERT INTO `T_EXECUTIONPLANMAIN` (`PLANID`, `APPID`, `PLANMEMO`, `NEXTPLANDATE`, `NEXTPLANTIME`, `LASTEXECUTEDATE`, `LASTEXECUTETIME`, `NOTIFYEMAILADDRESS`, `EXECUTEFLAG`)
 VALUES
 	(1,676,'日本語デモ実行','','','','','',1),
 	(6,678,'中文demo','','','','','',0);
@@ -315,7 +315,7 @@ DROP TABLE IF EXISTS `T_OBJECT`;
 CREATE TABLE `T_OBJECT` (
   `OBJECTID` int(4) NOT NULL AUTO_INCREMENT,
   `APPID` int(11) NOT NULL,
-  `PAGEID` char(100) NOT NULL,
+  `PAGEID` varchar(100) NOT NULL DEFAULT '',
   `OBJECTNAME` varchar(100) DEFAULT NULL,
   `OBJECTTYPE` varchar(100) DEFAULT NULL,
   `INFRAME` int(4) DEFAULT NULL,
@@ -359,7 +359,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `T_PAGE`;
 
 CREATE TABLE `T_PAGE` (
-  `PAGEID` char(100) NOT NULL,
+  `PAGEID` varchar(100) NOT NULL DEFAULT '',
   `APPID` int(11) NOT NULL,
   `PAGENAME` varchar(100) DEFAULT NULL,
   `PAGEDETAIL` varchar(250) DEFAULT NULL,
@@ -436,7 +436,7 @@ DROP TABLE IF EXISTS `T_PAGEACTIONMAIN`;
 CREATE TABLE `T_PAGEACTIONMAIN` (
   `PAGEACTIONID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `APPID` int(11) NOT NULL,
-  `PAGEID` char(200) NOT NULL,
+  `PAGEID` varchar(100) NOT NULL DEFAULT '',
   `PAGEACTIONDETAIL` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`PAGEACTIONID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -578,6 +578,77 @@ CREATE TABLE `T_TEST_RESULT` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+LOCK TABLES `T_TEST_RESULT` WRITE;
+/*!40000 ALTER TABLE `T_TEST_RESULT` DISABLE KEYS */;
+
+INSERT INTO `T_TEST_RESULT` (`id`, `EXECUTETIMESTAMP`, `OS`, `BROWSER`, `USERID`, `APPNAME`, `PLANMEMO`, `EXECUTENO`, `CASENAME`, `SCENARIONO`, `SCENARIONAME`, `PAGEORDER`, `PAGENAME`, `ACTIONNO`, `ACTITONNAME`, `ACTITONDETAIL`, `OBJECTNAME`, `PARAM`, `STATUS`, `DETAIL`, `FILENAME`)
+VALUES
+	(1,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',1,'初期処理',1,'dummy',1,'ExecSqlFile','SQLファイル実行',' ','sqlファイル=cleartable.sql','Done','','cleartable.sql'),
+	(2,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',1,'初期処理',2,'dummy',1,'ExecSqlFile','SQLファイル実行',' ','sqlファイル=insert.sql','Done','','insert.sql'),
+	(3,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',2,'アプリ開く',1,'dummy',1,'OpenURL','アプリurlを開く',' ','url=http://transit.yahoo.co.jp/?c=0','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-2-1-1.jpg'),
+	(4,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',1,'初期処理',1,'dummy',1,'ExecSqlFile','SQLファイル実行',' ','sqlファイル=cleartable.sql','Done','','cleartable.sql'),
+	(5,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',1,'初期処理',2,'dummy',1,'ExecSqlFile','SQLファイル実行',' ','sqlファイル=insert.sql','Done','','insert.sql'),
+	(6,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',1,'Input','出発地入力','出発','出発地=東陽町','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-1.jpg'),
+	(7,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',2,'Input','到着地入力','到着','到着地=品川','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-2.jpg'),
+	(8,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',2,'アプリ開く',1,'dummy',1,'OpenURL','アプリurlを開く',' ','url=http://transit.yahoo.co.jp/?c=0','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-2-1-1.jpg'),
+	(9,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',1,'Input','出発地入力','出発','出発地=東陽町','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-1.jpg'),
+	(10,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',3,'Select','日時指定・年選択','日時指定・年','日時指定・年=2016年','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-3.jpg'),
+	(11,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',2,'Input','到着地入力','到着','到着地=品川','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-2.jpg'),
+	(12,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',3,'Select','日時指定・年選択','日時指定・年','日時指定・年=2016年','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-3.jpg'),
+	(13,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',4,'Select','日時指定・月選択','日時指定・月','日時指定・月=12月','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-4.jpg'),
+	(14,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',5,'Select','日時指定・日選択','日時指定・日','日時指定・日=22日','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-5.jpg'),
+	(15,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',4,'Select','日時指定・月選択','日時指定・月','日時指定・月=12月','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-4.jpg'),
+	(16,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',6,'Select','日時指定・時間選択','日時指定・時間','日時指定・時間=10時','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-6.jpg'),
+	(17,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',7,'Select','日時指定・分選択','日時指定・分','日時指定・分=05分','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-7.jpg'),
+	(18,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',8,'Click','日時指定種類指定','日時指定種類','日時指定種類(出発/到着/始発/終電/指定なし)=到着','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-8.jpg'),
+	(19,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',9,'Click','運賃種別指定','運賃種別','運賃種別(ICカード優先/現金（きっぷ）優先)=現金（きっぷ）優先','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-9.jpg'),
+	(20,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',5,'Select','日時指定・日選択','日時指定・日','日時指定・日=22日','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-5.jpg'),
+	(21,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',6,'Select','日時指定・時間選択','日時指定・時間','日時指定・時間=10時','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-6.jpg'),
+	(22,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',10,'Click','検索ボタン押す','検索','','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-1-10.jpg'),
+	(23,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',7,'Select','日時指定・分選択','日時指定・分','日時指定・分=05分','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-7.jpg'),
+	(24,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',2,'結果ページ',1,'Verify','タイトル確認','タイトル(検索対象ルート)','想定主発地→到着地=東陽町→品川','Pass','','20170409165926_Linux_Chrome/20170409165926-1-1-3-2-1.jpg'),
+	(25,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',8,'Click','日時指定種類指定','日時指定種類','日時指定種類(出発/到着/始発/終電/指定なし)=到着','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-8.jpg'),
+	(26,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',2,'結果ページ',2,'Click','ソート順指定','ソート順','ソート順(到着時刻順/乗換回数順/料金の安い順)=乗換回数順','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-2-2.jpg'),
+	(27,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',9,'Click','運賃種別指定','運賃種別','運賃種別(ICカード優先/現金（きっぷ）優先)=現金（きっぷ）優先','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-9.jpg'),
+	(28,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',2,'結果ページ',3,'Verify','ルートxの所用時間の検証','所用時間(ルート名指定)','ルート名(ルート1/ルート2/ルート3)=ルート2;想定所要時間=（32分）','Pass','','20170409165926_Linux_Chrome/20170409165926-1-1-3-2-3.jpg'),
+	(29,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',3,'結果ページ',1,'Verify','タイトル確認','タイトル(検索対象ルート)','想定主発地→到着地=東陽町→品川','Pass','','20170409165926_Linux_Chrome/20170409165926-1-1-3-3-1.jpg'),
+	(30,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',3,'結果ページ',2,'Click','ソート順指定','ソート順','ソート順(到着時刻順/乗換回数順/料金の安い順)=料金の安い順','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-3-3-2.jpg'),
+	(31,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',3,'結果ページ',3,'Verify','ルートxの所用時間の検証','所用時間(ルート名指定)','ルート名(ルート1/ルート2/ルート3)=ルート3;想定所要時間=（32分）','Fail','EXPECTED VALUE=（32分）; ACTUAL VALUE=（37分）','20170409165926_Linux_Chrome/20170409165926-1-1-3-3-3.jpg'),
+	(32,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',4,'後処理',1,'dummy',1,'SQL2CSV','テーブルAダンプ',' ','ダンプsql=select * from APP_TABLE where id=5','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-4-1-1.csv'),
+	(33,'20170409165926','Linux','Chrome','cloud_agent2','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',4,'後処理',2,'dummy',1,'SQL2CSV','テーブルAダンプ',' ','ダンプsql=select * from APP_TABLE where id=1','Done','','20170409165926_Linux_Chrome/20170409165926-1-1-4-2-1.csv'),
+	(34,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',10,'Click','検索ボタン押す','検索','','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-1-10.jpg'),
+	(35,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',2,'結果ページ',1,'Verify','タイトル確認','タイトル(検索対象ルート)','想定主発地→到着地=東陽町→品川','Pass','','20170409165916_Linux_Firefox/20170409165916-1-1-3-2-1.jpg'),
+	(36,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',2,'結果ページ',2,'Click','ソート順指定','ソート順','ソート順(到着時刻順/乗換回数順/料金の安い順)=乗換回数順','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-2-2.jpg'),
+	(37,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',2,'結果ページ',3,'Verify','ルートxの所用時間の検証','所用時間(ルート名指定)','ルート名(ルート1/ルート2/ルート3)=ルート2;想定所要時間=（32分）','Pass','','20170409165916_Linux_Firefox/20170409165916-1-1-3-2-3.jpg'),
+	(38,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',3,'結果ページ',1,'Verify','タイトル確認','タイトル(検索対象ルート)','想定主発地→到着地=東陽町→品川','Pass','','20170409165916_Linux_Firefox/20170409165916-1-1-3-3-1.jpg'),
+	(39,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',3,'結果ページ',2,'Click','ソート順指定','ソート順','ソート順(到着時刻順/乗換回数順/料金の安い順)=料金の安い順','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-3-3-2.jpg'),
+	(40,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',3,'結果ページ',3,'Verify','ルートxの所用時間の検証','所用時間(ルート名指定)','ルート名(ルート1/ルート2/ルート3)=ルート3;想定所要時間=（32分）','Fail','EXPECTED VALUE=（32分）; ACTUAL VALUE=（37分）','20170409165916_Linux_Firefox/20170409165916-1-1-3-3-3.jpg'),
+	(41,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',4,'後処理',1,'dummy',1,'SQL2CSV','テーブルAダンプ',' ','ダンプsql=select * from APP_TABLE where id=5','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-4-1-1.csv'),
+	(42,'20170409165916','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',4,'後処理',2,'dummy',1,'SQL2CSV','テーブルAダンプ',' ','ダンプsql=select * from APP_TABLE where id=1','Done','','20170409165916_Linux_Firefox/20170409165916-1-1-4-2-1.csv'),
+	(43,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',1,'初期処理',1,'dummy',1,'ExecSqlFile','SQLファイル実行',' ','sqlファイル=cleartable.sql','Done','','cleartable.sql'),
+	(44,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',1,'初期処理',2,'dummy',1,'ExecSqlFile','SQLファイル実行',' ','sqlファイル=insert.sql','Done','','insert.sql'),
+	(45,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',2,'アプリ開く',1,'dummy',1,'OpenURL','アプリurlを開く',' ','url=http://transit.yahoo.co.jp/?c=0','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-2-1-1.jpg'),
+	(46,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',1,'Input','出発地入力','出発','出発地=東陽町','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-1.jpg'),
+	(47,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',2,'Input','到着地入力','到着','到着地=品川','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-2.jpg'),
+	(48,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',3,'Select','日時指定・年選択','日時指定・年','日時指定・年=2016年','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-3.jpg'),
+	(49,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',4,'Select','日時指定・月選択','日時指定・月','日時指定・月=12月','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-4.jpg'),
+	(50,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',5,'Select','日時指定・日選択','日時指定・日','日時指定・日=22日','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-5.jpg'),
+	(51,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',6,'Select','日時指定・時間選択','日時指定・時間','日時指定・時間=10時','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-6.jpg'),
+	(52,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',7,'Select','日時指定・分選択','日時指定・分','日時指定・分=05分','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-7.jpg'),
+	(53,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',8,'Click','日時指定種類指定','日時指定種類','日時指定種類(出発/到着/始発/終電/指定なし)=到着','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-8.jpg'),
+	(54,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',9,'Click','運賃種別指定','運賃種別','運賃種別(ICカード優先/現金（きっぷ）優先)=現金（きっぷ）優先','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-9.jpg'),
+	(55,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',1,'検索ページ',10,'Click','検索ボタン押す','検索','','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-1-10.jpg'),
+	(56,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',2,'結果ページ',1,'Verify','タイトル確認','タイトル(検索対象ルート)','想定主発地→到着地=東陽町→品川','Pass','','20170409170849_Linux_Firefox/20170409170849-1-1-3-2-1.jpg'),
+	(57,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',2,'結果ページ',2,'Click','ソート順指定','ソート順','ソート順(到着時刻順/乗換回数順/料金の安い順)=乗換回数順','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-2-2.jpg'),
+	(58,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',2,'結果ページ',3,'Verify','ルートxの所用時間の検証','所用時間(ルート名指定)','ルート名(ルート1/ルート2/ルート3)=ルート2;想定所要時間=（32分）','Pass','','20170409170849_Linux_Firefox/20170409170849-1-1-3-2-3.jpg'),
+	(59,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',3,'結果ページ',1,'Verify','タイトル確認','タイトル(検索対象ルート)','想定主発地→到着地=東陽町→品川','Pass','','20170409170849_Linux_Firefox/20170409170849-1-1-3-3-1.jpg'),
+	(60,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',3,'結果ページ',2,'Click','ソート順指定','ソート順','ソート順(到着時刻順/乗換回数順/料金の安い順)=料金の安い順','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-3-3-2.jpg'),
+	(61,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',3,'路線情報確認',3,'結果ページ',3,'Verify','ルートxの所用時間の検証','所用時間(ルート名指定)','ルート名(ルート1/ルート2/ルート3)=ルート3;想定所要時間=（32分）','Fail','EXPECTED VALUE=（32分）; ACTUAL VALUE=（37分）','20170409170849_Linux_Firefox/20170409170849-1-1-3-3-3.jpg'),
+	(62,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',4,'後処理',1,'dummy',1,'SQL2CSV','テーブルAダンプ',' ','ダンプsql=select * from APP_TABLE where id=5','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-4-1-1.csv'),
+	(63,'20170409170849','Linux','Firefox','agent3','Yahoo路線','日本語デモ実行',1,'路線情報確認（東陽町から品川）',4,'後処理',2,'dummy',1,'SQL2CSV','テーブルAダンプ',' ','ダンプsql=select * from APP_TABLE where id=1','Done','','20170409170849_Linux_Firefox/20170409170849-1-1-4-2-1.csv');
+
+/*!40000 ALTER TABLE `T_TEST_RESULT` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
