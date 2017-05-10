@@ -1,0 +1,278 @@
+system config========================================
+userid :cloud_agent1
+dbdriver :com.mysql.jdbc.Driver
+dburl :jdbc:mysql://mysqldocker:3306/autotable?useUnicode=true&characterEncoding=UTF-8
+dbuser :root
+dbpassword :123456
+dbuseSchema :
+starttimestamp :20170506200650
+resultrootfolder :/usr/src/output/
+resultfolder :/usr/src/output/20170506200650_Linux_Firefox/
+huburl :http://localhost:4444/wd/hub
+platform :Linux
+browser :Firefox
+driverfoler :/Users/wuhuidong/Documents/Workspace/webautotest/driver
+browser :Firefox
+SqlPropertity :/usr/src/config/Sql.properties
+SqlInitialPath :/usr/src/input/
+=====================================================
+Folder[/usr/src/output/20170506200650_Linux_Firefox/] ctreated
+test application: start
+SQL: SELECT M.PLANID,M.APPID,M.PLANMEMO,M.NEXTPLANDATE,M.NEXTPLANTIME,M.LASTEXECUTEDATE,M.LASTEXECUTETIME,M.NOTIFYEMAILADDRESS,E.OS,E.BROWSER FROM T_EXECUTIONPLANMAIN M,T_EXECUTIONENV E WHERE M.PLANID=E.PLANID AND M.EXECUTEFLAG=1 AND E.OS='Linux' AND E.BROWSER = 'Firefox' ORDER BY M.PLANID
+SQL: SELECT EXECUTENO,P.CASEID,CASENAME,CASEDETAIL FROM T_EXECUTIONPLANDETAIL P,T_CASEMAIN C WHERE P.CASEID=C.CASEID AND P.PLANID=1 ORDER BY EXECUTENO
+Process: Plan[1:日本語デモ実行]  created
+Process: Plan[1:日本語デモ実行]  start
+SQL: SELECT CASEID,ID,SCENARIONO,C.SCENARIOID,SCENARIONAME,SCENARIODETAIL FROM T_CASEDETAIL C,T_SCENARIOMAIN S WHERE C.SCENARIOID = S.SCENARIOID AND CASEID =8 ORDER BY SCENARIONO
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）]  start
+SQL: SELECT S.ID,S.SCENARIOID,S.PAGEORDER,S.PAGEACTIONID,AP.APPNAME,P.ACTIONUK,PM.PAGEID,PG.PAGENAME,P.ACTIONNO,P.ACTIONNAME,P.ACTIONDETAIL,P.OBJECTID,P.PARAMNAME FROM T_SCENARIOPROCESS S,T_PAGEACTION P,T_PAGEACTIONMAIN PM,T_PAGE PG,T_APPLICATION AP WHERE P.PAGEACTIONID = PM.PAGEACTIONID AND PM.APPID=AP.APPID AND PM.APPID=PG.APPID AND PM.PAGEID=PG.PAGEID AND S.PAGEACTIONID = P.PAGEACTIONID AND PM.APPID=676 AND S.SCENARIOID=23 ORDER BY S.PAGEORDER,P.ACTIONNO
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[23:初期処理]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[23:初期処理]  start
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=52 AND SCENARIOUK=14 AND ACTIONUK=42 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=52 AND SCENARIOUK=14 AND ACTIONUK=42 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[23:初期処理] PageAction[ScenarioUK=14:95:Pagedummy]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[23:初期処理] PageAction[ScenarioUK=14:95:Pagedummy]  start
+Object: Searching object by   key=[ ]
+SQL: SELECT APPDETAIL,DBDRIVER,DBURL,DBUSER,DBPASSWORD,DBSCHEMA FROM T_APPLICATION WHERE APPID=676
+system config========================================
+dbdriver :com.mysql.jdbc.Driver
+dburl :jdbc:mysql://mysqldocker:3306/appdb?useUnicode=true&characterEncoding=UTF-8
+dbuser :root
+dbpassword :123456
+dbcurrentSchema :
+=====================================================
+[DELETE FROM APP_TABLE;] is executed successfully!
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','1','初期処理','1','dummy','1','ExecSqlFile','SQLファイル実行',' ','sqlファイル=cleartable.sql','Done','','cleartable.sql')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[23:初期処理] PageAction[ScenarioUK=14:95:Pagedummy]  end
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=52 AND SCENARIOUK=15 AND ACTIONUK=42 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=52 AND SCENARIOUK=15 AND ACTIONUK=42 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[23:初期処理] PageAction[ScenarioUK=15:95:Pagedummy]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[23:初期処理] PageAction[ScenarioUK=15:95:Pagedummy]  start
+Object: Searching object by   key=[ ]
+SQL: SELECT APPDETAIL,DBDRIVER,DBURL,DBUSER,DBPASSWORD,DBSCHEMA FROM T_APPLICATION WHERE APPID=676
+[INSERT APP_TABLE VALUES(1,'AAA','啊啊啊');] is executed successfully!
+[INSERT APP_TABLE VALUES(3,'BBB','あああ');] is executed successfully!
+[INSERT APP_TABLE VALUES(5,'CCC','xxxx');] is executed successfully!
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','1','初期処理','2','dummy','1','ExecSqlFile','SQLファイル実行',' ','sqlファイル=insert.sql','Done','','insert.sql')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[23:初期処理] PageAction[ScenarioUK=15:95:Pagedummy]  end
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[23:初期処理]  end
+SQL: SELECT S.ID,S.SCENARIOID,S.PAGEORDER,S.PAGEACTIONID,AP.APPNAME,P.ACTIONUK,PM.PAGEID,PG.PAGENAME,P.ACTIONNO,P.ACTIONNAME,P.ACTIONDETAIL,P.OBJECTID,P.PARAMNAME FROM T_SCENARIOPROCESS S,T_PAGEACTION P,T_PAGEACTIONMAIN PM,T_PAGE PG,T_APPLICATION AP WHERE P.PAGEACTIONID = PM.PAGEACTIONID AND PM.APPID=AP.APPID AND PM.APPID=PG.APPID AND PM.PAGEID=PG.PAGEID AND S.PAGEACTIONID = P.PAGEACTIONID AND PM.APPID=676 AND S.SCENARIOID=24 ORDER BY S.PAGEORDER,P.ACTIONNO
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[24:アプリ開く]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[24:アプリ開く]  start
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=53 AND SCENARIOUK=16 AND ACTIONUK=43 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=53 AND SCENARIOUK=16 AND ACTIONUK=43 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[24:アプリ開く] PageAction[ScenarioUK=16:96:Pagedummy]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[24:アプリ開く] PageAction[ScenarioUK=16:96:Pagedummy]  start
+Object: Searching object by   key=[ ]
+Action: OpenURL : http://transit.yahoo.co.jp/?c=0 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-2-1-1.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','2','アプリ開く','1','dummy','1','OpenURL','アプリurlを開く',' ','url=http://transit.yahoo.co.jp/?c=0','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-2-1-1.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[24:アプリ開く] PageAction[ScenarioUK=16:96:Pagedummy]  end
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[24:アプリ開く]  end
+SQL: SELECT S.ID,S.SCENARIOID,S.PAGEORDER,S.PAGEACTIONID,AP.APPNAME,P.ACTIONUK,PM.PAGEID,PG.PAGENAME,P.ACTIONNO,P.ACTIONNAME,P.ACTIONDETAIL,P.OBJECTID,P.PARAMNAME FROM T_SCENARIOPROCESS S,T_PAGEACTION P,T_PAGEACTIONMAIN PM,T_PAGE PG,T_APPLICATION AP WHERE P.PAGEACTIONID = PM.PAGEACTIONID AND PM.APPID=AP.APPID AND PM.APPID=PG.APPID AND PM.PAGEID=PG.PAGEID AND S.PAGEACTIONID = P.PAGEACTIONID AND PM.APPID=676 AND S.SCENARIOID=25 ORDER BY S.PAGEORDER,P.ACTIONNO
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認]  start
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=117
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=44 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=44 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: Searching object by Xpath key=[.//*[@id='sfrom']]
+Action: Input on Inputbox with 東陽町 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-1.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','1','Input','出発地入力','出発','出発地=東陽町','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-1.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=2
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=45 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=45 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: Searching object by Xpath key=[.//*[@id='sto']]
+Action: Input on Inputbox with 品川 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-2.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','2','Input','到着地入力','到着','到着地=品川','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-2.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=103
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=46 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=46 AND PARAMTYPE=2
+SQL: SELECT PARAMVALUE FROM T_PARAM WHERE PARAMNAME='P_年'
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: Searching object by Xpath key=[.//*[@id='y']]
+Action: Select on Dropdown with 2016年 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-3.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','3','Select','日時指定・年選択','日時指定・年','日時指定・年=2016年','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-3.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=104
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=47 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=47 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: Searching object by Xpath key=[.//*[@id='m']]
+Action: Select on Dropdown with 12月 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-4.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','4','Select','日時指定・月選択','日時指定・月','日時指定・月=12月','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-4.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=105
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=48 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=48 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: Searching object by Xpath key=[.//*[@id='d']]
+Action: Select on Dropdown with 22日 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-5.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','5','Select','日時指定・日選択','日時指定・日','日時指定・日=22日','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-5.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=106
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=49 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=49 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: Searching object by Xpath key=[.//*[@id='hh']]
+Action: Select on Dropdown with 10時 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-6.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','6','Select','日時指定・時間選択','日時指定・時間','日時指定・時間=10時','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-6.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=107
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=50 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=50 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: Searching object by Xpath key=[.//*[@id='mm']]
+Action: Select on Dropdown with 05分 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-7.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','7','Select','日時指定・分選択','日時指定・分','日時指定・分=05分','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-7.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=118
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=51 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=51 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: [orginal] param [.//*[@id='default']/dd/ul/li/label[text()="%param1%"]]
+Object: [actural] param [.//*[@id='default']/dd/ul/li/label[text()="到着"]]
+Object: Searching object by Xpath key=[.//*[@id='default']/dd/ul/li/label[text()="到着"]]
+Action: Click on OptionButton 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-8.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','8','Click','日時指定種類指定','日時指定種類','日時指定種類(出発/到着/始発/終電/指定なし)=到着','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-8.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=109
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=52 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=52 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: [orginal] param [.//*[@id='mdRouteSearch']/div[2]/form/div/dl[2]/dd/ul/li/label[text()="%param1%"]]
+Object: [actural] param [.//*[@id='mdRouteSearch']/div[2]/form/div/dl[2]/dd/ul/li/label[text()="現金（きっぷ）優先"]]
+Object: Searching object by Xpath key=[.//*[@id='mdRouteSearch']/div[2]/form/div/dl[2]/dd/ul/li/label[text()="現金（きっぷ）優先"]]
+Action: Click on OptionButton 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-9.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','9','Click','運賃種別指定','運賃種別','運賃種別(ICカード優先/現金（きっぷ）優先)=現金（きっぷ）優先','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-9.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=110
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=53 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=17 AND ACTIONUK=53 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  start
+Object: Searching object by Xpath key=[.//*[@id='searchModuleSubmit']]
+Action: Click on Button 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-1-10.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','1','検索ページ','10','Click','検索ボタン押す','検索','','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-1-10.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=17:97:Page001]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=111
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=18 AND ACTIONUK=54 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=18 AND ACTIONUK=54 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=18:98:Page002]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=18:98:Page002]  start
+Object: Searching object by Xpath key=[.//*[@class='labelSearchResult']/h1]
+Action: Verify on Text with 東陽町→品川 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-2-1.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','2','結果ページ','1','Verify','タイトル確認','タイトル(検索対象ルート)','想定主発地→到着地=東陽町→品川','Pass','','20170506200650_Linux_Firefox/20170506200650-1-1-3-2-1.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=18:98:Page002]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=114
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=18 AND ACTIONUK=55 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=18 AND ACTIONUK=55 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=18:98:Page002]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=18:98:Page002]  start
+Object: [orginal] param [.//*[@id='tabflt']/li/a/span[text()='%param1%']]
+Object: [actural] param [.//*[@id='tabflt']/li/a/span[text()='乗換回数順']]
+Object: Searching object by Xpath key=[.//*[@id='tabflt']/li/a/span[text()='乗換回数順']]
+Action: Click on OptionButton 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-2-2.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','2','結果ページ','2','Click','ソート順指定','ソート順','ソート順(到着時刻順/乗換回数順/料金の安い順)=乗換回数順','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-2-2.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=18:98:Page002]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=113
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=18 AND ACTIONUK=56 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=18 AND ACTIONUK=56 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=18:98:Page002]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=18:98:Page002]  start
+Object: [orginal] param [.//*[@id='rsltlst']/li/dl/dt/a[text()='%param1%']/ancestor::dl//dd/ul/li[1]/span[@class='small']]
+Object: [actural] param [.//*[@id='rsltlst']/li/dl/dt/a[text()='ルート2']/ancestor::dl//dd/ul/li[1]/span[@class='small']]
+Object: Searching object by Xpath key=[.//*[@id='rsltlst']/li/dl/dt/a[text()='ルート2']/ancestor::dl//dd/ul/li[1]/span[@class='small']]
+Action: Verify on Text with （32分） 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-2-3.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','2','結果ページ','3','Verify','ルートxの所用時間の検証','所用時間(ルート名指定)','ルート名(ルート1/ルート2/ルート3)=ルート2;想定所要時間=（32分）','Pass','','20170506200650_Linux_Firefox/20170506200650-1-1-3-2-3.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=18:98:Page002]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=111
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=21 AND ACTIONUK=54 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=21 AND ACTIONUK=54 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=21:98:Page002]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=21:98:Page002]  start
+Object: Searching object by Xpath key=[.//*[@class='labelSearchResult']/h1]
+Action: Verify on Text with 東陽町→品川 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-3-1.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','3','結果ページ','1','Verify','タイトル確認','タイトル(検索対象ルート)','想定主発地→到着地=東陽町→品川','Pass','','20170506200650_Linux_Firefox/20170506200650-1-1-3-3-1.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=21:98:Page002]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=114
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=21 AND ACTIONUK=55 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=21 AND ACTIONUK=55 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=21:98:Page002]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=21:98:Page002]  start
+Object: [orginal] param [.//*[@id='tabflt']/li/a/span[text()='%param1%']]
+Object: [actural] param [.//*[@id='tabflt']/li/a/span[text()='料金の安い順']]
+Object: Searching object by Xpath key=[.//*[@id='tabflt']/li/a/span[text()='料金の安い順']]
+Action: Click on OptionButton 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-3-2.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','3','結果ページ','2','Click','ソート順指定','ソート順','ソート順(到着時刻順/乗換回数順/料金の安い順)=料金の安い順','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-3-3-2.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=21:98:Page002]  end
+SQL: SELECT OBJECTID,PAGEID,OBJECTNAME,OBJECTTYPE,INFRAME,IDENTIFIER,IDENTIFYKEY,PARAMNAME FROM T_OBJECT WHERE OBJECTID=113
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=21 AND ACTIONUK=56 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=54 AND SCENARIOUK=21 AND ACTIONUK=56 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=21:98:Page002]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=21:98:Page002]  start
+Object: [orginal] param [.//*[@id='rsltlst']/li/dl/dt/a[text()='%param1%']/ancestor::dl//dd/ul/li[1]/span[@class='small']]
+Object: [actural] param [.//*[@id='rsltlst']/li/dl/dt/a[text()='ルート3']/ancestor::dl//dd/ul/li[1]/span[@class='small']]
+Object: Searching object by Xpath key=[.//*[@id='rsltlst']/li/dl/dt/a[text()='ルート3']/ancestor::dl//dd/ul/li[1]/span[@class='small']]
+Action: Verify on Text with （32分） 
+Snapshot: /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-3-3-3.jpg
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','3','路線情報確認','3','結果ページ','3','Verify','ルートxの所用時間の検証','所用時間(ルート名指定)','ルート名(ルート1/ルート2/ルート3)=ルート3;想定所要時間=（32分）','Fail','EXPECTED VALUE=（32分）; ACTUAL VALUE=（37分）','20170506200650_Linux_Firefox/20170506200650-1-1-3-3-3.jpg')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認] PageAction[ScenarioUK=21:98:Page002]  end
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[25:路線情報確認]  end
+SQL: SELECT S.ID,S.SCENARIOID,S.PAGEORDER,S.PAGEACTIONID,AP.APPNAME,P.ACTIONUK,PM.PAGEID,PG.PAGENAME,P.ACTIONNO,P.ACTIONNAME,P.ACTIONDETAIL,P.OBJECTID,P.PARAMNAME FROM T_SCENARIOPROCESS S,T_PAGEACTION P,T_PAGEACTIONMAIN PM,T_PAGE PG,T_APPLICATION AP WHERE P.PAGEACTIONID = PM.PAGEACTIONID AND PM.APPID=AP.APPID AND PM.APPID=PG.APPID AND PM.PAGEID=PG.PAGEID AND S.PAGEACTIONID = P.PAGEACTIONID AND PM.APPID=676 AND S.SCENARIOID=26 ORDER BY S.PAGEORDER,P.ACTIONNO
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[26:後処理]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[26:後処理]  start
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=55 AND SCENARIOUK=19 AND ACTIONUK=57 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=55 AND SCENARIOUK=19 AND ACTIONUK=57 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[26:後処理] PageAction[ScenarioUK=19:99:Pagedummy]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[26:後処理] PageAction[ScenarioUK=19:99:Pagedummy]  start
+Object: Searching object by   key=[ ]
+SQL: SELECT APPDETAIL,DBDRIVER,DBURL,DBUSER,DBPASSWORD,DBSCHEMA FROM T_APPLICATION WHERE APPID=676
+sql= select * from APP_TABLE where id=5
+filename= /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-4-1-1.csv
+返回结果字段个数:3
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','4','後処理','1','dummy','1','SQL2CSV','テーブルAダンプ',' ','ダンプsql=select * from APP_TABLE where id=5','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-4-1-1.csv')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[26:後処理] PageAction[ScenarioUK=19:99:Pagedummy]  end
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=55 AND SCENARIOUK=20 AND ACTIONUK=57 AND PARAMTYPE=1
+SQL: SELECT PARAMVALUE FROM T_CASEPARAMVALUE WHERE CASEID=8 AND CASEDETAILID=55 AND SCENARIOUK=20 AND ACTIONUK=57 AND PARAMTYPE=2
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[26:後処理] PageAction[ScenarioUK=20:99:Pagedummy]  created
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[26:後処理] PageAction[ScenarioUK=20:99:Pagedummy]  start
+Object: Searching object by   key=[ ]
+SQL: SELECT APPDETAIL,DBDRIVER,DBURL,DBUSER,DBPASSWORD,DBSCHEMA FROM T_APPLICATION WHERE APPID=676
+sql= select * from APP_TABLE where id=1
+filename= /usr/src/output/20170506200650_Linux_Firefox/20170506200650-1-1-4-2-1.csv
+返回结果字段个数:3
+SQL: INSERT INTO T_TEST_RESULT (EXECUTETIMESTAMP,OS,BROWSER,USERID,APPNAME,PLANMEMO,EXECUTENO,CASENAME,SCENARIONO,SCENARIONAME,PAGEORDER,PAGENAME,ACTIONNO,ACTITONNAME,ACTITONDETAIL,OBJECTNAME,PARAM,STATUS,DETAIL,FILENAME) VALUES ('20170506200650','Linux','Firefox','cloud_agent1','Yahoo路線','日本語デモ実行','1','路線情報確認（東陽町から品川）','4','後処理','2','dummy','1','SQL2CSV','テーブルAダンプ',' ','ダンプsql=select * from APP_TABLE where id=1','Done','','20170506200650_Linux_Firefox/20170506200650-1-1-4-2-1.csv')
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[26:後処理] PageAction[ScenarioUK=20:99:Pagedummy]  end
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）] Scenario[26:後処理]  end
+Process: Plan[1:日本語デモ実行] Case[8:路線情報確認（東陽町から品川）]  end
+Process: Plan[1:日本語デモ実行]  end
+test application: normal end
+test application: close web driver
