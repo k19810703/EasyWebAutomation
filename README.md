@@ -45,13 +45,34 @@ git clone https://github.com/k19810703/EasyWebAutomation.git
 注：使用前请先备份所需的数据
 
 ### 5.  部署WebUI
+事前准备<br>
+由于ibm的github只支持ssh，所以请事先生成好ssh key，生成方法参考以下link<br>
+https://help.github.com/enterprise/2.9/user/articles/connecting-to-github-with-ssh/<br>
+默认会在〜/.ssh/下生成id_rsa和id_rsa.pub 2个文件，请自行copy到./ui目录下<br>
+
 如果80端口被占用，请打开ui_init.sh根据注释适当修改
 <pre><code>bash ui_init.sh
 </code></pre>
 由于网络问题，git clone和npm install可能会失败，多试几次即可
 <Br>注：成功后，请使用浏览器连接 http://localhost 验证部署成功<br>
 通过UI可以看到已经做了一个当当网的demo测试用例<br>
-如果使用自定义端口 http://localhost:yourport
+如果使用自定义端口 http://localhost:yourport<br>
+
+#### 特别声明（仅供参考）
+为什么会需要添加ssh_config<br>
+ssh方式下，第一次clone会提示<br>
+<pre><code>Are you sure you want to continue connecting (yes/no)? 
+</code></pre>
+需要user来输入yes确认，但是docker构建时候无法输入，就会无法正常运行。<br>
+这里我们需要改ssh_config来屏蔽这个提问<br>
+./ssh_config文件中默认的<br>
+<pre><code>#  StrictHostKeyChecking ask 
+</code></pre>
+改成<br>
+<pre><code>StrictHostKeyChecking no
+</code></pre>
+即可
+
 
 ### 6.  部署测试机
 
@@ -59,7 +80,7 @@ git clone https://github.com/k19810703/EasyWebAutomation.git
 
 自动执行（会响应web ui上的Execute test按钮）
 <pre><code>bash autoagent_init.sh Firefox cloud_agent1
-bash testagent_init.sh Chrome cloud_agent2
+bash autoagent_init.sh Chrome cloud_agent2
 </code></pre>
 自动测试机的时候的话请使用以上2个命令，参数不要改
 
@@ -105,7 +126,7 @@ Bluemix Containers Plugin安装命令
 </code></pre>
 
 3. 创建数据库容器
-<pre><code>bx ic run --name webautoudb -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d registry.ng.bluemix.net/{your_name_space}/webautodbimage
+<pre><code>bx ic run --name webautodb -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d registry.ng.bluemix.net/{your_name_space}/webautodbimage
 </code></pre>
 
 4.  绑定ip

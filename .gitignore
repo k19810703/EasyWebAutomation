@@ -1,3 +1,8 @@
 .idea/
 ui/.git-credentials
 output/
+ui/id_rsa
+ui/id_rsa.pub
+
+
+

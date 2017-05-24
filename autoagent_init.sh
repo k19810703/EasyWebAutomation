@@ -21,16 +21,21 @@ if [ ${agentname} == 'cloud_agent1' ] ; then
     autoagent=true
 elif [ ${agentname} == 'cloud_agent2' ] ;then
     autoagent='true'
+    echo "auto execute agent will be created"
 else
     autoagent='false'
+    echo "manual execute agent will be created"
 fi
-echo "auto execute agent:"${autoagent};
 
 if [ ! $3 ];  then
     createcontaineronly="false"
+    echo "build and start"
 else
     createcontaineronly="true"
+    echo "start only"
 fi
+
+
 
 #如果要使用vnc桌面，放开myport2的注释
 #如果要使用grip模式，放开myport1的注释
@@ -69,16 +74,18 @@ else
     echo ${modulename}" container does not exist";
 fi
 
-if [ ${createcontaineronly} == 'false' ]; then
-    if  docker images | grep -q ${imagename} ; then
+if  docker images | grep -q ${imagename} ; then
+    if [ ${createcontaineronly} == 'false' ]; then
         echo ${modulename}" image exist";
         docker rmi ${imagename}
         echo ${modulename}" image deleted"
         docker build -t ${imagename} --file ./testagent/Dockerfile_${browser} --no-cache .
-    else
-        echo ${modulename}" image does not exist";
     fi
+else
+    echo ${modulename}" image does not exist";
+    docker build -t ${imagename} --file ./testagent/Dockerfile_${browser} --no-cache .
 fi
+
 
 if  docker images | grep -q ${imagename} ; then
     echo "test agent image created"
