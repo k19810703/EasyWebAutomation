@@ -4,7 +4,7 @@ ADD ssh_config /etc/ssh/
 ADD id_rsa /root/.ssh/
 ADD id_rsa.pub /root/.ssh/
 RUN cd /usr/src/ \
-    && git clone git@github.ibm.com:caiyn/chanceauto.git
+    && git clone git@github.ibm.com:wuhd/chanceauto.git
 ADD startapp.sh /
 ADD mysql_util.js /usr/src/chanceauto/util/
 ADD package.json /usr/src/chanceauto/
