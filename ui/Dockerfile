@@ -1,4 +1,4 @@
-FROM node:6.10.0
+FROM blockchain-03.cn.ibm.com:83/library/node:6.10.0
 RUN mkdir /root/.ssh
 ADD ssh_config /etc/ssh/
 ADD id_rsa /root/.ssh/
