@@ -1,2 +1,2 @@
-cd /usr/src/chanceauto/
+cd /usr/src/
 node app.js

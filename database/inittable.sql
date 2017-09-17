@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# ホスト: 127.0.0.1 (MySQL 5.7.17)
+# ホスト: blockchain-03.cn.ibm.com (MySQL 5.7.18)
 # データベース: autotable
-# 作成時刻: 2017-05-09 07:42:09 +0000
+# 作成時刻: 2017-09-17 06:45:01 +0000
 # ************************************************************
 
 
@@ -34,18 +34,19 @@ CREATE TABLE `T_APPLICATION` (
   `DBUSER` varchar(10) NOT NULL,
   `DBPASSWORD` varchar(10) NOT NULL,
   `DBSCHEMA` varchar(10) DEFAULT ' ',
+  `JIRAURL` char(100) NOT NULL DEFAULT '',
+  `JIRAUSER` char(100) NOT NULL DEFAULT '',
+  `JIRAPASSWORD` char(100) NOT NULL DEFAULT '',
+  `JIRAPROJECTKEY` char(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`APPID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `T_APPLICATION` WRITE;
 /*!40000 ALTER TABLE `T_APPLICATION` DISABLE KEYS */;
 
-INSERT INTO `T_APPLICATION` (`APPID`, `APPNAME`, `APPDETAIL`, `DBDRIVER`, `DBURL`, `DBUSER`, `DBPASSWORD`, `DBSCHEMA`)
+INSERT INTO `T_APPLICATION` (`APPID`, `APPNAME`, `APPDETAIL`, `DBDRIVER`, `DBURL`, `DBUSER`, `DBPASSWORD`, `DBSCHEMA`, `JIRAURL`, `JIRAUSER`, `JIRAPASSWORD`, `JIRAPROJECTKEY`)
 VALUES
-	(676,'Yahoo路線','デモアプリ','com.mysql.jdbc.Driver','jdbc:mysql://mysqldocker:3306/appdb?useUnicode=true&characterEncoding=UTF-8','root','123456',''),
-	(678,'当当网','DEMO用','com.mysql.jdbc.Driver','jdbc:mysql://mysqldocker:3306/appdb?useUnicode=true&characterEncoding=UTF-8','root','123456',''),
-	(680,'Yahoo路線-Mobile','Mobileデモアプリ','com.mysql.jdbc.Driver','jdbc:mysql://mysqldocker:3306/appdb?useUnicode=true&characterEncoding=UTF-8','root','123456',''),
-	(681,'DevOpsApp','DevOps PoC App','','','','','');
+	(682,'DevOpsDemoApp','App for Devops Demo','','','','','','http://jira:8080','demo','demo1234','FP');
 
 /*!40000 ALTER TABLE `T_APPLICATION` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -61,25 +62,18 @@ CREATE TABLE `T_CASEDETAIL` (
   `CASEID` int(4) NOT NULL,
   `SCENARIONO` int(4) NOT NULL,
   `SCENARIOID` int(4) NOT NULL,
+  `EXECUTEFLAG` char(1) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `T_CASEDETAIL` WRITE;
 /*!40000 ALTER TABLE `T_CASEDETAIL` DISABLE KEYS */;
 
-INSERT INTO `T_CASEDETAIL` (`ID`, `CASEID`, `SCENARIONO`, `SCENARIOID`)
+INSERT INTO `T_CASEDETAIL` (`ID`, `CASEID`, `SCENARIONO`, `SCENARIOID`, `EXECUTEFLAG`)
 VALUES
-	(52,8,1,23),
-	(53,8,2,24),
-	(54,8,3,25),
-	(55,8,4,26),
-	(58,10,1,30),
-	(59,10,2,31),
-	(60,10,3,32),
-	(61,10,4,32),
-	(63,12,1,34),
-	(64,12,2,35),
-	(65,13,1,36);
+	(66,14,1,37,'1'),
+	(67,14,2,38,'1'),
+	(70,14,3,38,'1');
 
 /*!40000 ALTER TABLE `T_CASEDETAIL` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -103,10 +97,7 @@ LOCK TABLES `T_CASEMAIN` WRITE;
 
 INSERT INTO `T_CASEMAIN` (`CASEID`, `CASENAME`, `CASEDETAIL`, `REVIEWKBN`)
 VALUES
-	(8,'路線情報確認（東陽町から品川）','2016年10月21 10時05到着の東陽町から品川の路線情報を確認します。',''),
-	(10,'确认特定书籍的价格','确认以下书籍的价格\n软件自动化测试开发\n测之重器——自动化测试框架搭建指南',''),
-	(12,'路線情報確認（東陽町から品川） Mobile','2016年10月21 10時05到着の東陽町から品川の路線情報を確認します。',''),
-	(13,'DevOpsTestCase','DevOpsTestCase','');
+	(14,'DemoCase','Demo Case','');
 
 /*!40000 ALTER TABLE `T_CASEMAIN` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -132,57 +123,21 @@ LOCK TABLES `T_CASEPARAMVALUE` WRITE;
 
 INSERT INTO `T_CASEPARAMVALUE` (`CASEID`, `CASEDETAILID`, `SCENARIOUK`, `ACTIONUK`, `PARAMTYPE`, `PARAMVALUE`)
 VALUES
-	(8,52,14,42,2,'cleartable.sql'),
-	(8,52,15,42,2,'insert.sql'),
-	(8,53,16,43,2,'http://transit.yahoo.co.jp/?c=0'),
-	(8,54,17,44,2,'東陽町'),
-	(8,54,17,45,2,'品川'),
-	(8,54,17,46,2,'P_年'),
-	(8,54,17,47,2,'12月'),
-	(8,54,17,48,2,'22日'),
-	(8,54,17,49,2,'10時'),
-	(8,54,17,50,2,'05分'),
-	(8,54,17,51,1,'到着'),
-	(8,54,17,52,1,'現金（きっぷ）優先'),
-	(8,54,18,54,2,'東陽町→品川'),
-	(8,54,18,55,1,'乗換回数順'),
-	(8,54,18,56,1,'ルート2'),
-	(8,54,18,56,2,'（32分）'),
-	(8,54,21,54,2,'東陽町→品川'),
-	(8,54,21,55,1,'料金の安い順'),
-	(8,54,21,56,1,'ルート3'),
-	(8,54,21,56,2,'（32分）'),
-	(8,55,19,57,2,'select * from APP_TABLE where id=5'),
-	(8,55,20,57,2,'select * from APP_TABLE where id=1'),
-	(10,58,27,64,2,'http://www.dangdang.com/'),
-	(10,59,28,65,2,'自动化测试'),
-	(10,59,29,67,1,'当当自营'),
-	(10,60,30,68,1,'软件自动化测试开发'),
-	(10,60,30,68,2,'¥46.60'),
-	(10,61,30,68,1,'测之重器——自动化测试框架搭建指南'),
-	(10,61,30,68,2,'¥42.60'),
-	(12,63,33,73,2,'https://transit.yahoo.co.jp'),
-	(12,64,34,74,2,'東陽町'),
-	(12,64,34,75,2,'品川'),
-	(12,64,34,76,2,'6月'),
-	(12,64,34,77,2,'9日'),
-	(12,64,34,78,2,'10時'),
-	(12,64,34,79,2,'10分'),
-	(12,64,34,80,1,'到着'),
-	(12,64,34,82,1,'東陽町'),
-	(12,64,34,83,1,'品川'),
-	(12,64,35,84,2,'東陽町→品川'),
-	(12,64,35,85,1,'回数順'),
-	(12,64,35,86,1,'2'),
-	(12,64,35,86,2,'（29分）'),
-	(12,64,36,84,2,'東陽町→品川'),
-	(12,64,36,85,1,'料金順'),
-	(12,64,36,86,1,'4'),
-	(12,64,36,86,2,'（29分）'),
-	(13,65,37,87,2,'1'),
-	(13,65,37,88,2,'2'),
-	(13,65,37,89,2,'1+2=3'),
-	(13,65,37,90,2,'http://testapp:8000');
+	(14,66,38,91,2,'http://9.197.8.182:5001/main'),
+	(14,67,39,93,1,'1'),
+	(14,67,39,93,2,'No'),
+	(14,67,39,94,1,'A0001'),
+	(14,67,39,94,2,'ZhangSan'),
+	(14,67,39,95,1,'A0001'),
+	(14,67,39,95,2,'zhansan@cn.ibm.com'),
+	(14,67,39,96,2,'3'),
+	(14,70,39,93,1,'1'),
+	(14,70,39,93,2,'No'),
+	(14,70,39,94,1,'A0002'),
+	(14,70,39,94,2,'LiSi'),
+	(14,70,39,95,1,'A0002'),
+	(14,70,39,95,2,'caiyn@cn.ibm.com'),
+	(14,70,39,96,2,'3');
 
 /*!40000 ALTER TABLE `T_CASEPARAMVALUE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -194,7 +149,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `T_CONFIG`;
 
 CREATE TABLE `T_CONFIG` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL,
   `CONFIGTYPE` char(14) NOT NULL DEFAULT '',
   `CONFIGORDER` int(10) NOT NULL,
   `CONFIGNAME` varchar(50) NOT NULL DEFAULT '',
@@ -209,7 +164,6 @@ VALUES
 	(1,'ActionList',1,'OpenURL'),
 	(2,'ActionList',2,'Input'),
 	(3,'ActionList',3,'Click'),
-	(4,'ActionList',4,'Select'),
 	(5,'ActionList',5,'Verify'),
 	(6,'ActionList',6,'ExecSqlFile'),
 	(7,'ActionList',7,'SQL2CSV'),
@@ -224,13 +178,33 @@ VALUES
 	(16,'Browser',1,'IE'),
 	(17,'Browser',2,'Firefox'),
 	(18,'Browser',3,'Chrome'),
-	(19,'ActionList',8,'SwitchWindow'),
+	(19,'ActionList',8,'SwitchWindowByURL'),
 	(20,'OS',3,'Linux'),
 	(21,'ObjectType',6,'Frame'),
 	(22,'OS',4,'iOS'),
 	(23,'Browser',4,'Safari'),
 	(24,'Browser',5,'Browser'),
-	(25,'OS',5,'Android');
+	(25,'OS',5,'Android'),
+	(26,'ActionList',9,'ContinueForIE'),
+	(27,'ActionList',10,'InputWhenExist'),
+	(28,'ActionList',12,'ClickWhenExist'),
+	(29,'ActionList',11,'MouseMoveTo'),
+	(30,'ActionList',13,'SPClick1'),
+	(32,'ObjectType',7,'CheckBox'),
+	(33,'ActionList',14,'FocusObject'),
+	(34,'ActionList',15,'AlertBox'),
+	(35,'ObjectType',8,'Radio'),
+	(36,'ObjectType',9,'Select'),
+	(37,'ActionList',16,'SwitchWindowByTitle'),
+	(38,'ActionList',17,'VerifyPageid'),
+	(39,'ActionList',18,'VerifyPageidWhenExist'),
+	(40,'ActionList',19,'AlertBoxWhenExist'),
+	(41,'ActionList',20,'SelectByText'),
+	(42,'ActionList',21,'SelectByIndex'),
+	(43,'ActionList',23,'SelectByTextWhenExist'),
+	(44,'ActionList',24,'SelectByIndexWhenExist'),
+	(45,'ActionList',25,'WaitBySec'),
+	(46,'ActionList',26,'Scroll4Snapshot');
 
 /*!40000 ALTER TABLE `T_CONFIG` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -249,17 +223,6 @@ CREATE TABLE `T_EXECUTEFLAG` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `T_EXECUTEFLAG` WRITE;
-/*!40000 ALTER TABLE `T_EXECUTEFLAG` DISABLE KEYS */;
-
-INSERT INTO `T_EXECUTEFLAG` (`id`, `USERNAME`, `FLAG`, `ACTIVE`)
-VALUES
-	(1,'cloud_agent1',0,1),
-	(2,'cloud_agent2',0,1),
-	(3,'cloud',0,0);
-
-/*!40000 ALTER TABLE `T_EXECUTEFLAG` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # テーブルのダンプ T_EXECUTIONENV
@@ -271,21 +234,17 @@ CREATE TABLE `T_EXECUTIONENV` (
   `PLANID` int(4) NOT NULL,
   `OS` char(20) NOT NULL DEFAULT '',
   `BROWSER` char(20) NOT NULL DEFAULT '',
+  `AGENTNAME` varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`PLANID`,`OS`,`BROWSER`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `T_EXECUTIONENV` WRITE;
 /*!40000 ALTER TABLE `T_EXECUTIONENV` DISABLE KEYS */;
 
-INSERT INTO `T_EXECUTIONENV` (`PLANID`, `OS`, `BROWSER`)
+INSERT INTO `T_EXECUTIONENV` (`PLANID`, `OS`, `BROWSER`, `AGENTNAME`)
 VALUES
-	(1,'Linux','Chrome'),
-	(1,'Linux','Firefox'),
-	(6,'Linux','Firefox'),
-	(7,'MAC','Firefox'),
-	(8,'Android','Browser'),
-	(8,'iOS','Safari'),
-	(9,'Linux','Firefox');
+	(10,'Linux','Firefox','testagent'),
+	(10,'MAC','Firefox','whd');
 
 /*!40000 ALTER TABLE `T_EXECUTIONENV` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -297,21 +256,20 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `T_EXECUTIONPLANDETAIL`;
 
 CREATE TABLE `T_EXECUTIONPLANDETAIL` (
+  `ID` int(4) NOT NULL AUTO_INCREMENT,
   `PLANID` int(4) NOT NULL,
   `EXECUTENO` int(4) NOT NULL,
   `CASEID` int(4) DEFAULT NULL,
-  PRIMARY KEY (`PLANID`,`EXECUTENO`)
+  `EXECUTEFLG` int(4) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `T_EXECUTIONPLANDETAIL` WRITE;
 /*!40000 ALTER TABLE `T_EXECUTIONPLANDETAIL` DISABLE KEYS */;
 
-INSERT INTO `T_EXECUTIONPLANDETAIL` (`PLANID`, `EXECUTENO`, `CASEID`)
+INSERT INTO `T_EXECUTIONPLANDETAIL` (`ID`, `PLANID`, `EXECUTENO`, `CASEID`, `EXECUTEFLG`)
 VALUES
-	(1,1,8),
-	(6,1,10),
-	(8,1,12),
-	(9,1,13);
+	(1,10,1,14,1);
 
 /*!40000 ALTER TABLE `T_EXECUTIONPLANDETAIL` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -331,6 +289,7 @@ CREATE TABLE `T_EXECUTIONPLANMAIN` (
   `LASTEXECUTEDATE` varchar(8) DEFAULT NULL,
   `LASTEXECUTETIME` varchar(9) DEFAULT NULL,
   `NOTIFYEMAILADDRESS` varchar(200) DEFAULT NULL,
+  `HIGHLIGHTOBJECT` int(1) DEFAULT NULL,
   `EXECUTEFLAG` int(1) DEFAULT NULL,
   PRIMARY KEY (`PLANID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -338,12 +297,9 @@ CREATE TABLE `T_EXECUTIONPLANMAIN` (
 LOCK TABLES `T_EXECUTIONPLANMAIN` WRITE;
 /*!40000 ALTER TABLE `T_EXECUTIONPLANMAIN` DISABLE KEYS */;
 
-INSERT INTO `T_EXECUTIONPLANMAIN` (`PLANID`, `APPID`, `PLANMEMO`, `NEXTPLANDATE`, `NEXTPLANTIME`, `LASTEXECUTEDATE`, `LASTEXECUTETIME`, `NOTIFYEMAILADDRESS`, `EXECUTEFLAG`)
+INSERT INTO `T_EXECUTIONPLANMAIN` (`PLANID`, `APPID`, `PLANMEMO`, `NEXTPLANDATE`, `NEXTPLANTIME`, `LASTEXECUTEDATE`, `LASTEXECUTETIME`, `NOTIFYEMAILADDRESS`, `HIGHLIGHTOBJECT`, `EXECUTEFLAG`)
 VALUES
-	(1,676,'日本語デモ実行','','','','','',0),
-	(6,678,'中文demo','','','','','',0),
-	(8,680,'日本語Mobileデモ実行','','','','','',0),
-	(9,681,'DevOps','','','','','',1);
+	(10,682,'Demo','','','','','',1,1);
 
 /*!40000 ALTER TABLE `T_EXECUTIONPLANMAIN` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -372,43 +328,9 @@ LOCK TABLES `T_OBJECT` WRITE;
 
 INSERT INTO `T_OBJECT` (`OBJECTID`, `APPID`, `PAGEID`, `OBJECTNAME`, `OBJECTTYPE`, `INFRAME`, `IDENTIFIER`, `IDENTIFYKEY`, `PARAMNAME`)
 VALUES
-	(2,676,'Page001','到着','Inputbox',0,'Xpath','.//*[@id=\'sto\']',''),
-	(103,676,'Page001','日時指定・年','Dropdown',0,'Xpath','.//*[@id=\'y\']',''),
-	(104,676,'Page001','日時指定・月','Dropdown',0,'Xpath','.//*[@id=\'m\']',''),
-	(105,676,'Page001','日時指定・日','Dropdown',0,'Xpath','.//*[@id=\'d\']',''),
-	(106,676,'Page001','日時指定・時間','Dropdown',0,'Xpath','.//*[@id=\'hh\']',''),
-	(107,676,'Page001','日時指定・分','Dropdown',0,'Xpath','.//*[@id=\'mm\']',''),
-	(109,676,'Page001','運賃種別','OptionButton',0,'Xpath','.//*[@id=\'mdRouteSearch\']/div[2]/form/div/dl[2]/dd/ul/li/label[text()=\"%param1%\"]','運賃種別(ICカード優先/現金（きっぷ）優先)'),
-	(110,676,'Page001','検索','Button',0,'Xpath','.//*[@id=\'searchModuleSubmit\']',''),
-	(111,676,'Page002','タイトル(検索対象ルート)','Text',0,'Xpath','.//*[@class=\'labelSearchResult\']/h1',''),
-	(113,676,'Page002','所用時間(ルート名指定)','Text',0,'Xpath','.//*[@id=\'rsltlst\']/li/dl/dt/a[text()=\'%param1%\']/ancestor::dl//dd/ul/li[1]/span[@class=\'small\']','ルート名(ルート1/ルート2/ルート3)'),
-	(114,676,'Page002','ソート順','OptionButton',0,'Xpath','.//*[@id=\'tabflt\']/li/a/span[text()=\'%param1%\']','ソート順(到着時刻順/乗換回数順/料金の安い順)'),
-	(115,676,'Page002','乗換回数(ルート名指定)','Text',9,'Xpath','.//*[@id=\'rsltlst\']/li/dl/dt/a[text()=\'%param1%\']/ancestor::dl/dd/ul/li[3]/span[@class=\'mark\']','ルート名(ルート1/ルート2/ルート3)'),
-	(117,676,'Page001','出発','Inputbox',0,'Xpath','.//*[@id=\'sfrom\']',''),
-	(118,676,'Page001','日時指定種類','OptionButton',0,'Xpath','.//*[@id=\'default\']/dd/ul/li/label[text()=\"%param1%\"]','日時指定種類(出発/到着/始発/終電/指定なし)'),
-	(123,678,'Page01','搜索关键字栏','Inputbox',0,'Xpath','.//*[@id=\'key_S\']',''),
-	(125,678,'Page02','价格(by书名)','Text',0,'Xpath','.//*/p[1]/a[contains(@title,\'%param1%\')]/ancestor::li/p[@class=\'price\']/span[1]','书名'),
-	(126,678,'Page02','商品类型','OptionButton',0,'Xpath','.//*[@id=\'J_tab\']/a/li[text()=\'%param1%\']','类型(全部商品/当当自营)'),
-	(127,678,'Page01','搜索按钮','Button',0,'Xpath','.//*[@id=\'form_search_new\']/input[9]',''),
-	(133,679,'Page001','frame','Frame',0,'Xpath','.//*/iframe',''),
-	(134,679,'Page001','button','Button',133,'Xpath','.//*/button',''),
-	(135,679,'Page001','userid','Inputbox',133,'Xpath','.//*[@id=\'UserID\']',''),
-	(137,680,'Page001','到着','Inputbox',0,'Xpath','.//*[@id=\'sto\']',''),
-	(139,680,'Page001','日時指定・月','Dropdown',0,'Xpath','.//*[@id=\'selYear\']',''),
-	(140,680,'Page001','日時指定・日','Dropdown',0,'Xpath','.//*[@id=\'selDay\']',''),
-	(141,680,'Page001','日時指定・時間','Dropdown',0,'Xpath','.//*[@id=\'selHour\']',''),
-	(142,680,'Page001','日時指定・分','Dropdown',0,'Xpath','.//*[@id=\'mm\']',''),
-	(144,680,'Page001','検索','Button',0,'Xpath','.//*[@id=\'mainSearch\']/p/input',''),
-	(145,680,'Page001','出発','Inputbox',0,'Xpath','.//*[@id=\'sfrom\']',''),
-	(146,680,'Page001','日時指定種類','OptionButton',0,'Xpath','.//*/label[text()=\'%param1%\']/input','日時指定種類(出発/到着/始発/終電/指定なし)'),
-	(147,680,'Page001','出発候補','Text',0,'Xpath','.//*[@id=\'departure\']/dd/ul/li/a[text()=\"%param1%\"]','出発候補名'),
-	(148,680,'Page001','到着候補','Text',0,'Xpath','.//*[@id=\'arrival\']/dd/ul/li/a[text()=\"%param1%\"]','到着候補名'),
-	(149,680,'Page002','タイトル(検索対象ルート)','Text',0,'Xpath','.//*[@id=\'main\']/section/header/div/h1',''),
-	(150,680,'Page002','所用時間(ルート番号指定)','Text',0,'Xpath','.//*[@id=\'route0%param1%\']/header/ul/li[1]/span[2]','ルート番号(1~6)'),
-	(151,680,'Page002','ソート順','OptionButton',0,'Xpath','.//*[@id=\'tabflt\']/li/a/span[text()=\'%param1%\']','ソート順(時間順/回数順/料金順)'),
-	(152,681,'MainPage','number1','Inputbox',0,'Xpath','.//*[@id=\'number1\']',''),
-	(153,681,'MainPage','number2','Inputbox',0,'Xpath','.//*[@id=\'number2\']',''),
-	(154,681,'MainPage','result','Text',0,'Xpath','html/body/div[1]/div/div/strong','');
+	(155,682,'Namelist','TableColumnName','Text',0,'Xpath','html/body/table/tbody[1]/tr/th[%param1%]','ColumnNo'),
+	(156,682,'Namelist','OnbardNamebySN','Text',0,'Xpath','html/body/table/tbody[2]/tr/td[2 and text()=\'%param1%\']/following-sibling::td[1]','SN'),
+	(157,682,'Namelist','EmailBySN','Text',0,'Xpath','html/body/table/tbody[2]/tr/td[2 and text()=\'%param1%\']/following-sibling::td[2]','SN');
 
 /*!40000 ALTER TABLE `T_OBJECT` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -432,15 +354,8 @@ LOCK TABLES `T_PAGE` WRITE;
 
 INSERT INTO `T_PAGE` (`PAGEID`, `APPID`, `PAGENAME`, `PAGEDETAIL`)
 VALUES
-	('MainPage',681,'MainPage','MainPage'),
-	('Page001',676,'検索ページ','検索情報入力ページ'),
-	('Page001',680,'検索ページ','検索情報入力ページ'),
-	('Page002',676,'結果ページ','検索情報結果ページ'),
-	('Page002',680,'結果ページ','検索情報結果ページ'),
-	('Page01',678,'当当网首页','当当网首页'),
-	('Page02',678,'书类一览页','搜索结果的书类一览'),
-	('Pagedummy',676,'dummy','dummy'),
-	('Pagedummy',680,'dummy','dummy');
+	('dummy',682,'dummypage','for non-page action'),
+	('Namelist',682,'Onboardlist','list all onboard member');
 
 /*!40000 ALTER TABLE `T_PAGE` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -467,43 +382,12 @@ LOCK TABLES `T_PAGEACTION` WRITE;
 
 INSERT INTO `T_PAGEACTION` (`ACTIONUK`, `PAGEACTIONID`, `ACTIONNO`, `ACTIONNAME`, `ACTIONDETAIL`, `OBJECTID`, `PARAMNAME`)
 VALUES
-	(42,95,1,'ExecSqlFile','SQLファイル実行',0,'sqlファイル'),
-	(43,96,1,'OpenURL','アプリurlを開く',0,'url'),
-	(44,97,1,'Input','出発地入力',117,'出発地'),
-	(45,97,2,'Input','到着地入力',2,'到着地'),
-	(46,97,3,'Select','日時指定・年選択',103,'日時指定・年'),
-	(47,97,4,'Select','日時指定・月選択',104,'日時指定・月'),
-	(48,97,5,'Select','日時指定・日選択',105,'日時指定・日'),
-	(49,97,6,'Select','日時指定・時間選択',106,'日時指定・時間'),
-	(50,97,7,'Select','日時指定・分選択',107,'日時指定・分'),
-	(51,97,8,'Click','日時指定種類指定',118,''),
-	(52,97,9,'Click','運賃種別指定',109,''),
-	(53,97,10,'Click','検索ボタン押す',110,''),
-	(54,98,1,'Verify','タイトル確認',111,'想定主発地→到着地'),
-	(55,98,2,'Click','ソート順指定',114,''),
-	(56,98,3,'Verify','ルートxの所用時間の検証',113,'想定所要時間'),
-	(57,99,1,'SQL2CSV','テーブルAダンプ',0,'ダンプsql'),
-	(64,104,1,'OpenURL','打开当当网',0,'url'),
-	(65,105,1,'Input','搜索指定书名',123,'搜索关键字'),
-	(66,105,2,'Click','按搜索按钮',127,''),
-	(67,106,1,'Click','指定搜索结果类别',126,''),
-	(68,107,1,'Verify','验证书的价格',125,'价格(期待值)'),
-	(73,109,1,'OpenURL','Yahoo路線Mobile URL開く',0,'URL'),
-	(74,110,1,'Input','出発地入力',145,'出発地'),
-	(75,110,3,'Input','到着地入力',137,'到着地'),
-	(76,110,5,'Select','日時指定・月選択',139,'日時指定・月'),
-	(77,110,6,'Select','日時指定・日選択',140,'日時指定・日'),
-	(78,110,7,'Select','日時指定・時間選択',141,'日時指定・時間'),
-	(79,110,8,'Select','日時指定・分選択',142,'日時指定・分'),
-	(80,110,9,'Click','日時指定種類指定',146,''),
-	(81,110,10,'Click','検索ボタン押す',144,''),
-	(84,111,1,'Verify','タイトル確認',149,'想定主発地→到着地'),
-	(85,111,2,'Click','ソート順指定',151,''),
-	(86,111,3,'Verify','ルートxの所用時間の検証',150,'想定所要時間'),
-	(87,112,2,'Input','input number1',152,'number1'),
-	(88,112,3,'Input','input number2',153,'number2'),
-	(89,112,4,'Verify','check result',154,'result'),
-	(90,112,1,'OpenURL','open url',0,'url');
+	(91,113,1,'OpenURL','OpenURL',0,'URL'),
+	(92,114,1,'SQL2CSV','DumpTable',0,'SQLFile'),
+	(93,115,1,'Verify','VerifyTitle',155,'ExpectValue'),
+	(94,115,3,'Verify','VerifyName',156,'ExpectValue'),
+	(95,115,4,'Verify','VerifyEmail',157,'ExpectValue'),
+	(96,115,2,'WaitBySec','Wait',0,'WaitTime');
 
 /*!40000 ALTER TABLE `T_PAGEACTION` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -527,19 +411,9 @@ LOCK TABLES `T_PAGEACTIONMAIN` WRITE;
 
 INSERT INTO `T_PAGEACTIONMAIN` (`PAGEACTIONID`, `APPID`, `PAGEID`, `PAGEACTIONDETAIL`)
 VALUES
-	(95,676,'Pagedummy','SQLファイル実行'),
-	(96,676,'Pagedummy','アプリ開く'),
-	(97,676,'Page001','情報入力してから検索する'),
-	(98,676,'Page002','路線情報確認'),
-	(99,676,'Pagedummy','テーブルダンプ'),
-	(104,678,'Page01','打开当当网'),
-	(105,678,'Page01','搜索书名'),
-	(106,678,'Page02','指定搜索结果类型'),
-	(107,678,'Page02','验证指定书名的价格'),
-	(109,680,'Pagedummy','URL開く'),
-	(110,680,'Page001','検索ページ-情報入力してから検索する'),
-	(111,680,'Page002','路線情報確認'),
-	(112,681,'MainPage','FunctionTest');
+	(113,682,'dummy','OpenAppURL'),
+	(114,682,'dummy','DUMPTable'),
+	(115,682,'Namelist','VerifyPageContent');
 
 /*!40000 ALTER TABLE `T_PAGEACTIONMAIN` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -556,15 +430,6 @@ CREATE TABLE `T_PARAM` (
   PRIMARY KEY (`PARAMNAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `T_PARAM` WRITE;
-/*!40000 ALTER TABLE `T_PARAM` DISABLE KEYS */;
-
-INSERT INTO `T_PARAM` (`PARAMNAME`, `PARAMVALUE`)
-VALUES
-	('P_年','2016年');
-
-/*!40000 ALTER TABLE `T_PARAM` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # テーブルのダンプ T_SCENARIOMAIN
@@ -585,16 +450,9 @@ LOCK TABLES `T_SCENARIOMAIN` WRITE;
 
 INSERT INTO `T_SCENARIOMAIN` (`SCENARIOID`, `SCENARIONAME`, `SCENARIODETAIL`, `REVIEW`)
 VALUES
-	(23,'初期処理','関連テーブルの初期化','0'),
-	(24,'アプリ開く','アプリ開く','0'),
-	(25,'路線情報確認','','0'),
-	(26,'後処理','テスト実施後の処理','0'),
-	(30,'打开当当网','打开当当网url','0'),
-	(31,'搜索指定书名','搜索指定书名，并限定为当当自营','0'),
-	(32,'确认价格','确认指定书名的价格','0'),
-	(34,'Mobileアプリ開く','Mobileアプリ開く','0'),
-	(35,'Mobile路線情報確認','','0'),
-	(36,'DevOpsTestScenario','Test Scenario for DevOps Demo','0');
+	(37,'OpenURL','OpenURL','0'),
+	(38,'Verify','','0'),
+	(39,'DumpTable','','0');
 
 /*!40000 ALTER TABLE `T_SCENARIOMAIN` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -619,23 +477,9 @@ LOCK TABLES `T_SCENARIOPROCESS` WRITE;
 
 INSERT INTO `T_SCENARIOPROCESS` (`ID`, `SCENARIOID`, `PAGEORDER`, `PAGEACTIONID`, `COMMENT`)
 VALUES
-	(14,23,1,95,'対象テーブルデータ削除'),
-	(15,23,2,95,'対象テーブルデータインサート'),
-	(16,24,1,96,''),
-	(17,25,1,97,''),
-	(18,25,2,98,'乗換回数順確認'),
-	(19,26,1,99,'テーブルAのダンプ'),
-	(20,26,2,99,'テーブルBのダンプ'),
-	(21,25,3,98,'料金の安い順確認'),
-	(27,30,1,104,''),
-	(28,31,1,105,''),
-	(29,31,2,106,''),
-	(30,32,1,107,''),
-	(33,34,1,109,''),
-	(34,35,1,110,''),
-	(35,35,2,111,'乗換回数順確認'),
-	(36,35,3,111,'料金の安い順確認'),
-	(37,36,1,112,'function test');
+	(38,37,1,113,''),
+	(39,38,1,115,''),
+	(40,39,1,114,'');
 
 /*!40000 ALTER TABLE `T_SCENARIOPROCESS` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -647,8 +491,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `T_TEST_RESULT`;
 
 CREATE TABLE `T_TEST_RESULT` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
   `EXECUTETIMESTAMP` char(50) NOT NULL DEFAULT '',
+  `COMPLETETIMESTAMP` char(50) NOT NULL DEFAULT '',
+  `PLANID` int(4) NOT NULL,
   `OS` varchar(20) NOT NULL DEFAULT '',
   `BROWSER` varchar(20) NOT NULL DEFAULT '',
   `USERID` varchar(50) NOT NULL,
@@ -668,9 +514,50 @@ CREATE TABLE `T_TEST_RESULT` (
   `STATUS` varchar(10) NOT NULL,
   `DETAIL` varchar(250) NOT NULL,
   `FILENAME` varchar(250) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+LOCK TABLES `T_TEST_RESULT` WRITE;
+/*!40000 ALTER TABLE `T_TEST_RESULT` DISABLE KEYS */;
+
+INSERT INTO `T_TEST_RESULT` (`ID`, `EXECUTETIMESTAMP`, `COMPLETETIMESTAMP`, `PLANID`, `OS`, `BROWSER`, `USERID`, `APPNAME`, `PLANMEMO`, `EXECUTENO`, `CASENAME`, `SCENARIONO`, `SCENARIONAME`, `PAGEORDER`, `PAGENAME`, `ACTIONNO`, `ACTITONNAME`, `ACTITONDETAIL`, `OBJECTNAME`, `PARAM`, `STATUS`, `DETAIL`, `FILENAME`)
+VALUES
+	(1,'20170914001513','20170914001523',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',1,'OpenURL',1,'dummypage',1,'OpenURL','OpenURL',' ','URL=http://9.197.8.182:5001/main','Done','','20170914001513_Linux_Firefox/20170914001513-10-1-1-1-1.jpg'),
+	(2,'20170914001513','20170914001524',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',2,'Verify',1,'Onboardlist',1,'Verify','VerifyTitle','TableColumnName','ColumnNo=1;ExpectValue=No','Fail','EXPECTED VALUE=No; ACTUAL VALUE=No4','20170914001513_Linux_Firefox/20170914001513-10-1-2-1-1.jpg'),
+	(3,'20170914001513','20170914001527',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',2,'Verify',1,'Onboardlist',2,'WaitBySec','Wait',' ','WaitTime=3','Done','','20170914001513_Linux_Firefox/20170914001513-10-1-2-1-2.jpg'),
+	(4,'20170914001513','20170914001527',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',2,'Verify',1,'Onboardlist',3,'Verify','VerifyName','OnbardNamebySN','SN=A0001;ExpectValue=ZhangSan','Pass','','20170914001513_Linux_Firefox/20170914001513-10-1-2-1-3.jpg'),
+	(5,'20170914001513','20170914001527',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',2,'Verify',1,'Onboardlist',4,'Verify','VerifyEmail','EmailBySN','SN=A0001;ExpectValue=zhansan@cn.ibm.com','Pass','','20170914001513_Linux_Firefox/20170914001513-10-1-2-1-4.jpg'),
+	(6,'20170914001513','20170914001527',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',3,'Verify',1,'Onboardlist',1,'Verify','VerifyTitle','TableColumnName','ColumnNo=1;ExpectValue=No','Fail','EXPECTED VALUE=No; ACTUAL VALUE=No4','20170914001513_Linux_Firefox/20170914001513-10-1-3-1-1.jpg'),
+	(7,'20170914001513','20170914001530',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',3,'Verify',1,'Onboardlist',2,'WaitBySec','Wait',' ','WaitTime=3','Done','','20170914001513_Linux_Firefox/20170914001513-10-1-3-1-2.jpg'),
+	(8,'20170914001513','20170914001531',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',3,'Verify',1,'Onboardlist',3,'Verify','VerifyName','OnbardNamebySN','SN=A0002;ExpectValue=LiSi','Pass','','20170914001513_Linux_Firefox/20170914001513-10-1-3-1-3.jpg'),
+	(9,'20170914001513','20170914001531',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',3,'Verify',1,'Onboardlist',4,'Verify','VerifyEmail','EmailBySN','SN=A0002;ExpectValue=caiyn@cn.ibm.com','Pass','','20170914001513_Linux_Firefox/20170914001513-10-1-3-1-4.jpg');
+
+/*!40000 ALTER TABLE `T_TEST_RESULT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# テーブルのダンプ T_USER
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `T_USER`;
+
+CREATE TABLE `T_USER` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `USERID` char(200) DEFAULT NULL,
+  `PASSWORD` char(20) DEFAULT NULL,
+  `USERNAME` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `T_USER` WRITE;
+/*!40000 ALTER TABLE `T_USER` DISABLE KEYS */;
+
+INSERT INTO `T_USER` (`id`, `USERID`, `PASSWORD`, `USERNAME`)
+VALUES
+	(1,'wuhd','whd12345','WuHuiDong');
+
+/*!40000 ALTER TABLE `T_USER` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 

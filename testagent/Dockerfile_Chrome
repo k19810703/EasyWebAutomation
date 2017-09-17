@@ -1,7 +1,7 @@
 #debug模式
 #FROM selenium/standalone-chrome-debug:2.52.0
 #普通模式
-FROM selenium/standalone-chrome:2.52.0
+FROM blockchain-03.cn.ibm.com:83/library/standalone-chrome:2.53.0
 USER root
 RUN apt-get update \
  && apt-get install -y --force-yes --no-install-recommends fonts-wqy-microhei ttf-wqy-zenhei

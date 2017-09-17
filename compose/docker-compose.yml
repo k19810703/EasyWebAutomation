@@ -1,0 +1,19 @@
+version: '2'
+services:
+  webautoui:
+    image: blockchain-03.cn.ibm.com:83/toolchain/webautouiimage
+    ports:
+      - "6001:6001"
+    volumes:
+      - ./input:/usr/src/chanceauto/public/input
+      - ./output:/usr/src/chanceauto/public/output
+      - /etc/localtime:/etc/localtime:ro
+  webautodb:
+    image: blockchain-03.cn.ibm.com:83/toolchain/webautodbimage
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./dbdata:/var/lib/mysql

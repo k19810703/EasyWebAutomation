@@ -4,7 +4,7 @@
 
 var mysql      = require('mysql');
 var connstr = {
-    host     : 'mysqldocker',
+    host     : 'webautodb',
     user     : 'root',
     password : '123456',
     database : 'autotable'
