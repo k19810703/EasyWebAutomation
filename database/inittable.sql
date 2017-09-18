@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# ホスト: blockchain-03.cn.ibm.com (MySQL 5.7.18)
+# ホスト: 127.0.0.1 (MySQL 5.7.18)
 # データベース: autotable
-# 作成時刻: 2017-09-17 06:45:01 +0000
+# 作成時刻: 2017-09-18 03:09:03 +0000
 # ************************************************************
 
 
@@ -46,7 +46,7 @@ LOCK TABLES `T_APPLICATION` WRITE;
 
 INSERT INTO `T_APPLICATION` (`APPID`, `APPNAME`, `APPDETAIL`, `DBDRIVER`, `DBURL`, `DBUSER`, `DBPASSWORD`, `DBSCHEMA`, `JIRAURL`, `JIRAUSER`, `JIRAPASSWORD`, `JIRAPROJECTKEY`)
 VALUES
-	(682,'DevOpsDemoApp','App for Devops Demo','','','','','','http://jira:8080','demo','demo1234','FP');
+	(682,'DevOpsDemoApp','App for Devops Demo','','','','','','','','','');
 
 /*!40000 ALTER TABLE `T_APPLICATION` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -123,7 +123,7 @@ LOCK TABLES `T_CASEPARAMVALUE` WRITE;
 
 INSERT INTO `T_CASEPARAMVALUE` (`CASEID`, `CASEDETAILID`, `SCENARIOUK`, `ACTIONUK`, `PARAMTYPE`, `PARAMVALUE`)
 VALUES
-	(14,66,38,91,2,'http://9.197.8.182:5001/main'),
+	(14,66,38,91,2,'http://9.197.8.182:6001/main'),
 	(14,67,39,93,1,'1'),
 	(14,67,39,93,2,'No'),
 	(14,67,39,94,1,'A0001'),
@@ -517,23 +517,6 @@ CREATE TABLE `T_TEST_RESULT` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-LOCK TABLES `T_TEST_RESULT` WRITE;
-/*!40000 ALTER TABLE `T_TEST_RESULT` DISABLE KEYS */;
-
-INSERT INTO `T_TEST_RESULT` (`ID`, `EXECUTETIMESTAMP`, `COMPLETETIMESTAMP`, `PLANID`, `OS`, `BROWSER`, `USERID`, `APPNAME`, `PLANMEMO`, `EXECUTENO`, `CASENAME`, `SCENARIONO`, `SCENARIONAME`, `PAGEORDER`, `PAGENAME`, `ACTIONNO`, `ACTITONNAME`, `ACTITONDETAIL`, `OBJECTNAME`, `PARAM`, `STATUS`, `DETAIL`, `FILENAME`)
-VALUES
-	(1,'20170914001513','20170914001523',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',1,'OpenURL',1,'dummypage',1,'OpenURL','OpenURL',' ','URL=http://9.197.8.182:5001/main','Done','','20170914001513_Linux_Firefox/20170914001513-10-1-1-1-1.jpg'),
-	(2,'20170914001513','20170914001524',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',2,'Verify',1,'Onboardlist',1,'Verify','VerifyTitle','TableColumnName','ColumnNo=1;ExpectValue=No','Fail','EXPECTED VALUE=No; ACTUAL VALUE=No4','20170914001513_Linux_Firefox/20170914001513-10-1-2-1-1.jpg'),
-	(3,'20170914001513','20170914001527',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',2,'Verify',1,'Onboardlist',2,'WaitBySec','Wait',' ','WaitTime=3','Done','','20170914001513_Linux_Firefox/20170914001513-10-1-2-1-2.jpg'),
-	(4,'20170914001513','20170914001527',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',2,'Verify',1,'Onboardlist',3,'Verify','VerifyName','OnbardNamebySN','SN=A0001;ExpectValue=ZhangSan','Pass','','20170914001513_Linux_Firefox/20170914001513-10-1-2-1-3.jpg'),
-	(5,'20170914001513','20170914001527',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',2,'Verify',1,'Onboardlist',4,'Verify','VerifyEmail','EmailBySN','SN=A0001;ExpectValue=zhansan@cn.ibm.com','Pass','','20170914001513_Linux_Firefox/20170914001513-10-1-2-1-4.jpg'),
-	(6,'20170914001513','20170914001527',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',3,'Verify',1,'Onboardlist',1,'Verify','VerifyTitle','TableColumnName','ColumnNo=1;ExpectValue=No','Fail','EXPECTED VALUE=No; ACTUAL VALUE=No4','20170914001513_Linux_Firefox/20170914001513-10-1-3-1-1.jpg'),
-	(7,'20170914001513','20170914001530',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',3,'Verify',1,'Onboardlist',2,'WaitBySec','Wait',' ','WaitTime=3','Done','','20170914001513_Linux_Firefox/20170914001513-10-1-3-1-2.jpg'),
-	(8,'20170914001513','20170914001531',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',3,'Verify',1,'Onboardlist',3,'Verify','VerifyName','OnbardNamebySN','SN=A0002;ExpectValue=LiSi','Pass','','20170914001513_Linux_Firefox/20170914001513-10-1-3-1-3.jpg'),
-	(9,'20170914001513','20170914001531',10,'Linux','Firefox','testagent','DevOpsDemoApp','Demo',1,'DemoCase',3,'Verify',1,'Onboardlist',4,'Verify','VerifyEmail','EmailBySN','SN=A0002;ExpectValue=caiyn@cn.ibm.com','Pass','','20170914001513_Linux_Firefox/20170914001513-10-1-3-1-4.jpg');
-
-/*!40000 ALTER TABLE `T_TEST_RESULT` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # テーブルのダンプ T_USER

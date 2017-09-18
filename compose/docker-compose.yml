@@ -3,11 +3,13 @@ services:
   webautoui:
     image: blockchain-03.cn.ibm.com:83/toolchain/webautouiimage
     ports:
-      - "6001:6001"
+      - "6002:6001"
     volumes:
       - ./input:/usr/src/chanceauto/public/input
       - ./output:/usr/src/chanceauto/public/output
       - /etc/localtime:/etc/localtime:ro
+    links:
+      - webautodb:mysqldocker
   webautodb:
     image: blockchain-03.cn.ibm.com:83/toolchain/webautodbimage
     ports:
