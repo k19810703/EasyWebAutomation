@@ -5,8 +5,8 @@ services:
     ports:
       - "6002:6001"
     volumes:
-      - ./input:/usr/src/chanceauto/public/input
-      - ./output:/usr/src/chanceauto/public/output
+      - ./input:/usr/src/public/input
+      - ./output:/usr/src/public/output
       - /etc/localtime:/etc/localtime:ro
     links:
       - webautodb:mysqldocker
@@ -19,3 +19,14 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./dbdata:/var/lib/mysql
+  firefox_agent:
+    image: blockchain-03.cn.ibm.com:83/toolchain/webautota_firefox_image
+    environment:
+      - agentname=testagent
+      - testbrowser=Firefox
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./input:/usr/src/input
+      - ./output:/usr/src/output
+      - ./download:/usr/src/download
+
