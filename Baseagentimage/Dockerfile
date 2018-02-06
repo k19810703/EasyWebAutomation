@@ -1,7 +1,7 @@
 #debug模式
-#FROM selenium/standalone-firefox-debug:2.53.0
+#FROM selenium/standalone-firefox-debug:3.4.0
 #普通模式
-FROM blockchain-03.cn.ibm.com:83/library/standalone-firefox:2.53.0
+FROM selenium/standalone-firefox:3.4.0
 USER root
 RUN apt-get update \
  && apt-get install -y --force-yes --no-install-recommends fonts-wqy-microhei ttf-wqy-zenhei

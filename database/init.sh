@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
-mysql -uroot -p123456 -e "create database IF NOT EXISTS autotable"
-mysql -uroot -p123456 autotable < /usr/src/inittable.sql
+su - db2inst1 -c "db2 create db AUTOTEST"
+su - db2inst1 -c "db2 -tvf /usr/src/DDL.sql"
+su - db2inst1 -c "db2 -tvf /usr/src/CONFIG.sql"

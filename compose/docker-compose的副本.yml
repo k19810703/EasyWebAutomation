@@ -1,0 +1,35 @@
+version: '2'
+services:
+  webautoui:
+    image: blockchain-03.cn.ibm.com:83/library/webautoui
+    ports:
+      - "6001:6001"
+    environment:
+      - DBIP=webautodb
+      - DBUSER=DB2INST1
+      - PASSWORD=123456
+    volumes:
+      - ./input:/usr/src/public/input
+      - ./output:/usr/src/public/output
+      - /etc/localtime:/etc/localtime:ro
+    links:
+      - webautodb:mysqldocker
+  webautodb:
+    image: blockchain-03.cn.ibm.com:83/library/webautodb
+    ports:
+      - 50000:50000
+    environment:
+      - DB2INST1_PASSWORD=123456
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./dbdata:/var/lib/mysql
+  firefox_agent:
+    image: blockchain-03.cn.ibm.com:83/toolchain/webautota_firefox_image
+    environment:
+      - agentname=testagent
+      - testbrowser=Firefox
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./input:/usr/src/input
+      - ./output:/usr/src/output
+      - ./download:/usr/src/download
