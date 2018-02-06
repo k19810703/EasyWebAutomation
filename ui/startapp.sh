@@ -1,2 +1,9 @@
 cd /usr/src/
+export NODE_ENV=development
+export CHANCE_AUTO_DBTYPE=db2
+export CHANCE_AUTO_DBIP=${DBIP}
+export CHANCE_AUTO_DBPORT=50000
+export CHANCE_AUTO_DBUSER=${DBUSER}
+export CHANCE_AUTO_DBPASS=${PASSWORD}
+export CHANCE_AUTO_DBDATABASE=AUTOTEST
 node app.js
