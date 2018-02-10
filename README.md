@@ -57,6 +57,8 @@ Could not load host key: /etc/ssh/ssh_host_ed25519_key
 <pre><code>docker exec -it compose_webautodb_1 bash /init.sh
 </code></pre>
 
+完成后可以通过 http://localhost:6001 访问web端
+
 ### 4. 测试执行
 docker执行
 <pre><code>bash execute.sh
