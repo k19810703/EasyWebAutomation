@@ -1,6 +1,7 @@
 # EasyWebAutomation v1.0
 ## CIC Next 出品
-Web自动化测试平台，用户可以用过web的ui来编辑测试用例进行自动化测试
+Web自动化测试平台，用户可以用过web的ui来编辑测试用例进行自动化测试</br>
+本guide里包含了一个baidu的demo，帮助用户理解功能
 
 ## 部署
 
