@@ -43,7 +43,7 @@ docker-compose up -d
 </code></pre>
 
 稍等片刻后执行
-<pre><code>docker logs -f compose_webautodb_1
+<pre><code>docker logs compose_webautodb_1
 </code></pre>
 
 看到如下log
