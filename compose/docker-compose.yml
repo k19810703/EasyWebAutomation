@@ -1,11 +1,13 @@
 version: '2'
 services:
   webautoui:
-    image: blockchain-03.cn.ibm.com:83/library/webautoui:v1.0
+    image: blockchain-03.cn.ibm.com:83/library/webautoui:v1.1
     ports:
       - "6001:6001"
     environment:
+      - SERVERTYPE=development
       - DBIP=webautodb
+      - DBPORT=50000
       - DBUSER=DB2INST1
       - PASSWORD=123456
     volumes:
@@ -14,7 +16,7 @@ services:
     links:
       - webautodb:webautodb
   webautodb:
-    image: blockchain-03.cn.ibm.com:83/library/webautodb:v1.0
+    image: blockchain-03.cn.ibm.com:83/library/webautodb:v1.1
     ports:
       - 50000:50000
     environment:
@@ -22,14 +24,3 @@ services:
       - LICENSE=accept
     command:
       db2start
-  firefox_agent:
-    image: blockchain-03.cn.ibm.com:83/library/webautofirefox:v1.0-2.53.1
-    environment:
-      - agentname=testagent
-      - testbrowser=Firefox
-    links:
-      - webautodb:webautodb
-    volumes:
-      - ./input:/usr/src/input
-      - ./output:/usr/src/output
-      - ./download:/usr/src/download
