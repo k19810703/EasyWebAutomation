@@ -24,3 +24,14 @@ services:
       - LICENSE=accept
     command:
       db2start
+  firefox_agent:
+    image: blockchain-03.cn.ibm.com:83/library/webautofirefox:v1.0-2.53.1
+    environment:
+      - agentname=testagent
+      - testbrowser=Firefox
+    links:
+      - webautodb:webautodb
+    volumes:
+      - ./input:/usr/src/input
+      - ./output:/usr/src/output
+      - ./download:/usr/src/download

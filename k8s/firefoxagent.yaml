@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: webagentff
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webagentff
+    spec:
+      containers:
+      - name: webagentff
+        image: registry.ng.bluemix.net/mycontainter/webautofirefox:v1.0-2.53.1
+        imagePullPolicy: Always
+        env:
+        - name: testbrowser
+          value: Firefox
+        volumeMounts:
+        - name: inputfolder
+          mountPath: /usr/src/public/input
+        - name: outputfolder
+          mountPath: /usr/src/public/output
+      volumes:
+      - name: inputfolder
+        persistentVolumeClaim:
+          claimName: chance-input-pv-claim
+      - name: outputfolder
+        persistentVolumeClaim:
+          claimName: chance-output-pv-claim
