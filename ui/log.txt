@@ -1,0 +1,188 @@
+start API
+apimain init->start Wed Apr  4 01:13:10 2018
+apimain init->end
+apimain run->start
+SQL sucess : SELECT E.PLANID,M.ERRORSTOPFLAG,A.APPNAME,E.AGENTNAME,M.PLANMEMO FROM T_APIEXECUTIONENV E,T_APIEXECUTIONPLANMAIN M,T_APPLICATION A WHERE E.AGENTNAME='demotest' AND M.PLANID = E.PLANID AND M.EXECUTEFLAG = 1 AND A.APPID = M.APPID
+ApiAgent.execute -> start
+SQL sucess : SELECT A.*,B.CASENAME from T_APIEXECUTIONPLANDETAIL A, T_APICASEMAIN B WHERE PLANID = 5 AND EXECUTEFLG = 1 AND A.CASEID = B.CASEID ORDER BY EXECUTENO
+['20180404011311', '00000000000000', 5, 'demotest', '常陽銀行API', 'plan', 2, 0, 0, 0, 'Executing', 'sample_log.txt']
+SQL sucess : insert into T_TEST_APIRESULTMAIN (EXECUTETIMESTAMP,COMPLETETIMESTAMP,PLANID,AGENTNAME,APPNAME,PLANMEMO,PLANEDCASE,EXECUTEDCASE,OKCASE,NGCASE,STATUS,LOG) values(?,?,?,?,?,?,?,?,?,?,?,?)
+ApiPlan.execute -> start
+SQL sucess : select * from T_APICASEDETAIL where CASEID = 1 ORDER BY NO
+[5098.0, '00000000000000', 1, 'トークン取得', 8, 0, 0, 0, 'Executing']
+SQL sucess : insert into T_TEST_APIRESULTCASE  (RESULTMAINID,COMPLETETIMESTAMP,CASENO,CASENAME,TOTALSTEPS,EXECUTEDSTEPS,NGSTEPS,OKSTEPS,STATUS) values(?,?,?,?,?,?,?,?,?)
+ApiCase.execute -> start
+0 running :  Wed Apr  4 01:13:12 2018
+action httpreq ->start
+SQL sucess : select * from T_REQUESTTEMPLATE where REQTEMPID = 1
+SQL sucess : select * from T_APICASEPARAM where CASEDETAILID = 2
+%P_JOYOAPI%/auth/banking?_TRANID=QSPLGNAPI001_001&response_type=code&client_id=%Param1%&scope=Mpb-Query-ALL&state=state001&redirect_uri=https://localhost
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_JOYOAPI'
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_常陽API_client_id'
+https://www.inb.joyodev.chance.co.jp/auth/banking?_TRANID=QSPLGNAPI001_001&response_type=code&client_id=M-JOYO-Re-0100&scope=Mpb-Query-ALL&state=state001&redirect_uri=https://localhost
+
+
+https://www.inb.joyodev.chance.co.jp/auth/banking?_TRANID=QSPLGNAPI001_001&response_type=code&client_id=M-JOYO-Re-0100&scope=Mpb-Query-ALL&state=state001&redirect_uri=https://localhost
+
+
+********************
+CaseInsensitiveDict({'Accept-Encoding': 'gzip, deflate, compress', 'Accept': '*/*', 'User-Agent': 'python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic'})
+Accept-Encoding=gzip, deflate, compress&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*
+********************
+action httpreq ->end
+[110.0, 1, 'HTTPREQ', 'ログイン画面開く', 'GET', 'https://www.inb.joyodev.chance.co.jp/auth/banking?_TRANID=QSPLGNAPI001_001&response_type=code&client_id=M-JOYO-Re-0100&scope=Mpb-Query-ALL&state=state001&redirect_uri=https://localhost', 'Accept-Encoding=gzip, deflate, compress&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*', '', '200', '', '', '', '200', '', 'OK', '110.01.html']
+SQL sucess : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+['00000000000000', 1, 0, 1, 'Executing', 110.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+1 running :  Wed Apr  4 01:13:14 2018
+r_param :  {'%R_Timestamp%': '1522804392345'}
+[110.0, 2, 'SetParamByXpath', 'Timestamp取得', '', '', '', '', '', "/html/body/form/input[@name='_SENDTS']", 'value', '%R_Timestamp%', '', '%R_Timestamp% = 1522804392345', 'DONE', '']
+SQL sucess : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+['00000000000000', 2, 0, 2, 'Executing', 110.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+2 running :  Wed Apr  4 01:13:15 2018
+action httpreq ->start
+SQL sucess : select * from T_REQUESTTEMPLATE where REQTEMPID = 2
+SQL sucess : select HEADERKEY,HEADERVALUE from T_REQUESTHEADERDETAIL where HEADERID = 1
+SQL sucess : select * from T_APICASEPARAM where CASEDETAILID = 4
+%P_JOYOAPI%/auth/banking
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_JOYOAPI'
+https://www.inb.joyodev.chance.co.jp/auth/banking
+_PAGEID=QSPLGNAPI001&_SENDTS=%Param1%&_TRANID=QSPLGNAPI001_002&_SUBINDEX=-1&_TARGET=&_FRAMID=&_LUID=LUID&_WINID=api&_TARGETWINID=&ERRORCD=&RESPONSETYPE=code&CLIENTID=M-JOYO-Re-0100&REDIRECTURI=https%3A%2F%2Flocalhost&SCOPE=Mpb-Query-ALL&STATE=state001&BRANCHNUM=%Param2%&SVCACCTNUMBER=%Param3%&FULLKANANAME=%Param4%&DATE_YYYY=%Param5%&DATE_MM=%Param6%&DATE_DD=%Param7%&TELNO=%Param8%
+_PAGEID=QSPLGNAPI001&_SENDTS=1522804392345&_TRANID=QSPLGNAPI001_002&_SUBINDEX=-1&_TARGET=&_FRAMID=&_LUID=LUID&_WINID=api&_TARGETWINID=&ERRORCD=&RESPONSETYPE=code&CLIENTID=M-JOYO-Re-0100&REDIRECTURI=https%3A%2F%2Flocalhost&SCOPE=Mpb-Query-ALL&STATE=state001&BRANCHNUM=200&SVCACCTNUMBER=1032313&FULLKANANAME=%83e%83X%83g%81%40%83R%83W%83%93%83C%83%93%83o%83%93%83%5B%83%8D&DATE_YYYY=1976&DATE_MM=10&DATE_DD=27&TELNO=5678
+[{'HEADERVALUE': 'application/x-www-form-urlencoded', 'HEADERKEY': 'Content-Type'}]
+https://www.inb.joyodev.chance.co.jp/auth/banking
+[{'HEADERVALUE': 'application/x-www-form-urlencoded', 'HEADERKEY': 'Content-Type'}]
+_PAGEID=QSPLGNAPI001&_SENDTS=1522804392345&_TRANID=QSPLGNAPI001_002&_SUBINDEX=-1&_TARGET=&_FRAMID=&_LUID=LUID&_WINID=api&_TARGETWINID=&ERRORCD=&RESPONSETYPE=code&CLIENTID=M-JOYO-Re-0100&REDIRECTURI=https%3A%2F%2Flocalhost&SCOPE=Mpb-Query-ALL&STATE=state001&BRANCHNUM=200&SVCACCTNUMBER=1032313&FULLKANANAME=%83e%83X%83g%81%40%83R%83W%83%93%83C%83%93%83o%83%93%83%5B%83%8D&DATE_YYYY=1976&DATE_MM=10&DATE_DD=27&TELNO=5678
+********************
+CaseInsensitiveDict({'Content-Type': 'application/x-www-form-urlencoded', 'Accept-Encoding': 'gzip, deflate, compress', 'Accept': '*/*', 'User-Agent': 'python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic'})
+Accept-Encoding=gzip, deflate, compress&Content-Type=application/x-www-form-urlencoded&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*
+********************
+action httpreq ->end
+[110.0, 3, 'HTTPREQ', 'ログイン', 'POST', 'https://www.inb.joyodev.chance.co.jp/auth/banking', 'Accept-Encoding=gzip, deflate, compress&Content-Type=application/x-www-form-urlencoded&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*', '_PAGEID=QSPLGNAPI001&_SENDTS=1522804392345&_TRANID=QSPLGNAPI001_002&_SUBINDEX=-1&_TARGET=&_FRAMID=&_LUID=LUID&_WINID=api&_TARGETWINID=&ERRORCD=&RESPONSETYPE=code&CLIENTID=M-JOYO-Re-0100&REDIRECTURI=https%3A%2F%2Flocalhost&SCOPE=Mpb-Query-ALL&STATE=state001&BRANCHNUM=200&SVCACCTNUMBER=1032313&FULLKANANAME=%83e%83X%83g%81%40%83R%83W%83%93%83C%83%93%83o%83%93%83%5B%83%8D&DATE_YYYY=1976&DATE_MM=10&DATE_DD=27&TELNO=5678', '200', '', '', '', '200', '', 'OK', '110.03.html']
+SQL sucess : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+['00000000000000', 3, 0, 3, 'Executing', 110.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+3 running :  Wed Apr  4 01:13:17 2018
+r_param :  {'%R_Timestamp%': '1522804394948'}
+[110.0, 4, 'SetParamByXpath', 'Timestamp取得', '', '', '', '', '', "/html/body/form/input[@name='_SENDTS']", 'value', '%R_Timestamp%', '', '%R_Timestamp% = 1522804394948', 'DONE', '']
+SQL sucess : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+['00000000000000', 4, 0, 4, 'Executing', 110.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+4 running :  Wed Apr  4 01:13:17 2018
+action httpreq ->start
+SQL sucess : select * from T_REQUESTTEMPLATE where REQTEMPID = 3
+SQL sucess : select HEADERKEY,HEADERVALUE from T_REQUESTHEADERDETAIL where HEADERID = 1
+SQL sucess : select * from T_APICASEPARAM where CASEDETAILID = 6
+%P_JOYOAPI%/auth/banking
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_JOYOAPI'
+https://www.inb.joyodev.chance.co.jp/auth/banking
+_PAGEID=QSPLGNAPI002&_SENDTS=%Param1%&_TRANID=QSPLGNAPI002_001&_SUBINDEX=-1&_TARGET=&_FRAMID=&_LUID=LUID&_WINID=api&_TARGETWINID=&ERRORCD=&RESPONSETYPE=code&CLIENTID=%Param3%&REDIRECTURI=https%3A%2F%2Flocalhost&SCOPE=Mpb-Query-ALL&STATE=state001&PSWD=%Param2%
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_常陽API_client_id'
+_PAGEID=QSPLGNAPI002&_SENDTS=1522804394948&_TRANID=QSPLGNAPI002_001&_SUBINDEX=-1&_TARGET=&_FRAMID=&_LUID=LUID&_WINID=api&_TARGETWINID=&ERRORCD=&RESPONSETYPE=code&CLIENTID=M-JOYO-Re-0100&REDIRECTURI=https%3A%2F%2Flocalhost&SCOPE=Mpb-Query-ALL&STATE=state001&PSWD=0000
+[{'HEADERVALUE': 'application/x-www-form-urlencoded', 'HEADERKEY': 'Content-Type'}]
+https://www.inb.joyodev.chance.co.jp/auth/banking
+[{'HEADERVALUE': 'application/x-www-form-urlencoded', 'HEADERKEY': 'Content-Type'}]
+_PAGEID=QSPLGNAPI002&_SENDTS=1522804394948&_TRANID=QSPLGNAPI002_001&_SUBINDEX=-1&_TARGET=&_FRAMID=&_LUID=LUID&_WINID=api&_TARGETWINID=&ERRORCD=&RESPONSETYPE=code&CLIENTID=M-JOYO-Re-0100&REDIRECTURI=https%3A%2F%2Flocalhost&SCOPE=Mpb-Query-ALL&STATE=state001&PSWD=0000
+********************
+CaseInsensitiveDict({'Content-Type': 'application/x-www-form-urlencoded', 'Accept-Encoding': 'gzip, deflate, compress', 'Accept': '*/*', 'User-Agent': 'python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic'})
+Accept-Encoding=gzip, deflate, compress&Content-Type=application/x-www-form-urlencoded&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*
+********************
+action httpreq ->end
+[110.0, 5, 'HTTPREQ', 'Code取得', 'POST', 'https://www.inb.joyodev.chance.co.jp/auth/banking', 'Accept-Encoding=gzip, deflate, compress&Content-Type=application/x-www-form-urlencoded&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*', '_PAGEID=QSPLGNAPI002&_SENDTS=1522804394948&_TRANID=QSPLGNAPI002_001&_SUBINDEX=-1&_TARGET=&_FRAMID=&_LUID=LUID&_WINID=api&_TARGETWINID=&ERRORCD=&RESPONSETYPE=code&CLIENTID=M-JOYO-Re-0100&REDIRECTURI=https%3A%2F%2Flocalhost&SCOPE=Mpb-Query-ALL&STATE=state001&PSWD=0000', '200', '', '', '', '200', '', 'OK', '110.05.html']
+SQL sucess : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+['00000000000000', 5, 0, 5, 'Executing', 110.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+5 running :  Wed Apr  4 01:13:20 2018
+r_param :  {'%R_Timestamp%': '1522804394948', '%R_Code%': 'AAIKc9VTMJF-ynwAYyPLvOOhYzCRP-K3jGl4YfWYKUOYDb9EQ4vUEOR93Ob-6eqKmiqBH4zs1zjNClj6PEI4NEQA41-usPuQnXiSu-IpgI7yDle1NTMLvdGks4y8ws1ttKo38EC7D12HdkDK5wBGpxurGLmtP3nm2eIGJT2sjxFp6ka2DUvkCTTcyFj6OF4kvekhVLNf9lWxcUixmnvjCe0JswGBEkp-9T2YlwhCAO-m_usxm5xM9q9mxxqR5MdGKdE'}
+[110.0, 6, 'SetParamByXpath', 'Code設定', '', '', '', '', '', "/html/body/form/input[@name='code']", 'value', '%R_Code%', '', '%R_Code% = AAIKc9VTMJF-ynwAYyPLvOOhYzCRP-K3jGl4YfWYKUOYDb9EQ4vUEOR93Ob-6eqKmiqBH4zs1zjNClj6PEI4NEQA41-usPuQnXiSu-IpgI7yDle1NTMLvdGks4y8ws1ttKo38EC7D12HdkDK5wBGpxurGLmtP3nm2eIGJT2sjxFp6ka2DUvkCTTcyFj6OF4kvekhVLNf9lWxcUixmnvjCe0JswGBEkp-9T2YlwhCAO-m_usxm5xM9q9mxxqR5MdGKdE', 'DONE', '']
+SQL sucess : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+['00000000000000', 6, 0, 6, 'Executing', 110.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+6 running :  Wed Apr  4 01:13:20 2018
+action httpreq ->start
+SQL sucess : select * from T_REQUESTTEMPLATE where REQTEMPID = 4
+SQL sucess : select HEADERKEY,HEADERVALUE from T_REQUESTHEADERDETAIL where HEADERID = 2
+SQL sucess : select * from T_APICASEPARAM where CASEDETAILID = 7
+%P_JOYOAPI%/api/v1/token
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_JOYOAPI'
+https://www.inb.joyodev.chance.co.jp/api/v1/token
+grant_type=authorization_code&code=%Param1%&scope=Mpb-Query-ALL&uuid=%Param2%&redirect_uri=https://localhost
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_常陽API_uuid'
+grant_type=authorization_code&code=AAIKc9VTMJF-ynwAYyPLvOOhYzCRP-K3jGl4YfWYKUOYDb9EQ4vUEOR93Ob-6eqKmiqBH4zs1zjNClj6PEI4NEQA41-usPuQnXiSu-IpgI7yDle1NTMLvdGks4y8ws1ttKo38EC7D12HdkDK5wBGpxurGLmtP3nm2eIGJT2sjxFp6ka2DUvkCTTcyFj6OF4kvekhVLNf9lWxcUixmnvjCe0JswGBEkp-9T2YlwhCAO-m_usxm5xM9q9mxxqR5MdGKdE&scope=Mpb-Query-ALL&uuid=UUID20170905&redirect_uri=https://localhost
+[{'HEADERVALUE': 'Basic TS1KT1lPLVJlLTAxMDA6NWEyODhjNDYyM2MzNDVhOWE2MTQ4YTZmOTQ1MjM5ZmY=', 'HEADERKEY': 'Authorization'}]
+https://www.inb.joyodev.chance.co.jp/api/v1/token
+[{'HEADERVALUE': 'Basic TS1KT1lPLVJlLTAxMDA6NWEyODhjNDYyM2MzNDVhOWE2MTQ4YTZmOTQ1MjM5ZmY=', 'HEADERKEY': 'Authorization'}]
+grant_type=authorization_code&code=AAIKc9VTMJF-ynwAYyPLvOOhYzCRP-K3jGl4YfWYKUOYDb9EQ4vUEOR93Ob-6eqKmiqBH4zs1zjNClj6PEI4NEQA41-usPuQnXiSu-IpgI7yDle1NTMLvdGks4y8ws1ttKo38EC7D12HdkDK5wBGpxurGLmtP3nm2eIGJT2sjxFp6ka2DUvkCTTcyFj6OF4kvekhVLNf9lWxcUixmnvjCe0JswGBEkp-9T2YlwhCAO-m_usxm5xM9q9mxxqR5MdGKdE&scope=Mpb-Query-ALL&uuid=UUID20170905&redirect_uri=https://localhost
+********************
+CaseInsensitiveDict({'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic TS1KT1lPLVJlLTAxMDA6NWEyODhjNDYyM2MzNDVhOWE2MTQ4YTZmOTQ1MjM5ZmY=', 'Accept': '*/*', 'User-Agent': 'python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic', 'Accept-Encoding': 'gzip, deflate, compress'})
+Authorization=Basic TS1KT1lPLVJlLTAxMDA6NWEyODhjNDYyM2MzNDVhOWE2MTQ4YTZmOTQ1MjM5ZmY=&Accept-Encoding=gzip, deflate, compress&Content-Type=application/x-www-form-urlencoded&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*
+********************
+action httpreq ->end
+[110.0, 7, 'HTTPREQ', 'Token取得', 'POST', 'https://www.inb.joyodev.chance.co.jp/api/v1/token', 'Authorization=Basic TS1KT1lPLVJlLTAxMDA6NWEyODhjNDYyM2MzNDVhOWE2MTQ4YTZmOTQ1MjM5ZmY=&Accept-Encoding=gzip, deflate, compress&Content-Type=application/x-www-form-urlencoded&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*', 'grant_type=authorization_code&code=AAIKc9VTMJF-ynwAYyPLvOOhYzCRP-K3jGl4YfWYKUOYDb9EQ4vUEOR93Ob-6eqKmiqBH4zs1zjNClj6PEI4NEQA41-usPuQnXiSu-IpgI7yDle1NTMLvdGks4y8ws1ttKo38EC7D12HdkDK5wBGpxurGLmtP3nm2eIGJT2sjxFp6ka2DUvkCTTcyFj6OF4kvekhVLNf9lWxcUixmnvjCe0JswGBEkp-9T2YlwhCAO-m_usxm5xM9q9mxxqR5MdGKdE&scope=Mpb-Query-ALL&uuid=UUID20170905&redirect_uri=https://localhost', '200', '', '', '', '200', '', 'OK', '110.07.html']
+SQL sucess : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+['00000000000000', 7, 0, 7, 'Executing', 110.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+7 running :  Wed Apr  4 01:13:21 2018
+the JSON object must be str, not 'bytes'
+r_param :  {'%R_Timestamp%': '1522804394948', '%R_Code%': 'AAIKc9VTMJF-ynwAYyPLvOOhYzCRP-K3jGl4YfWYKUOYDb9EQ4vUEOR93Ob-6eqKmiqBH4zs1zjNClj6PEI4NEQA41-usPuQnXiSu-IpgI7yDle1NTMLvdGks4y8ws1ttKo38EC7D12HdkDK5wBGpxurGLmtP3nm2eIGJT2sjxFp6ka2DUvkCTTcyFj6OF4kvekhVLNf9lWxcUixmnvjCe0JswGBEkp-9T2YlwhCAO-m_usxm5xM9q9mxxqR5MdGKdE'}
+[110.0, 8, 'SetParamByJSON', 'Token設定', '', '', '', '', ' ', '', '.access_token', '%P_AccessToken%', '', 'SetParamByJSON error', 'ERROR', '']
+SQL sucess : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+['20180404011321', 8, 1, 7, 'Completed', 110.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+ApiCase.execute -> end
+['00000000000000', 1, 0, 1, 'Executing', 5098.0]
+SQL sucess : update T_TEST_APIRESULTMAIN set COMPLETETIMESTAMP = ?, EXECUTEDCASE = ? , OKCASE = ?, NGCASE = ? , STATUS = ? where ID = ?
+SQL sucess : select * from T_APICASEDETAIL where CASEID = 2 ORDER BY NO
+[5098.0, '00000000000000', 2, '口座一覧取得確認', 3, 0, 0, 0, 'Executing']
+SQL sucess : insert into T_TEST_APIRESULTCASE  (RESULTMAINID,COMPLETETIMESTAMP,CASENO,CASENAME,TOTALSTEPS,EXECUTEDSTEPS,NGSTEPS,OKSTEPS,STATUS) values(?,?,?,?,?,?,?,?,?)
+ApiCase.execute -> start
+0 running :  Wed Apr  4 01:13:22 2018
+action httpreq ->start
+SQL sucess : select * from T_REQUESTTEMPLATE where REQTEMPID = 5
+SQL sucess : select HEADERKEY,HEADERVALUE from T_REQUESTHEADERDETAIL where HEADERID = 3
+SQL sucess : select * from T_APICASEPARAM where CASEDETAILID = 18
+%P_JOYOAPI%/api/v1/accounts?client_id=%Param1%&uuid=%Param2%
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_JOYOAPI'
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_常陽API_client_id'
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_常陽API_uuid'
+https://www.inb.joyodev.chance.co.jp/api/v1/accounts?client_id=M-JOYO-Re-0100&uuid=UUID20170905
+
+
+[{'HEADERVALUE': 'Bearer %P_AccessToken%', 'HEADERKEY': 'Authorization'}]
+SQL sucess : select * from T_APIPARAM where PARAMNAME = 'P_AccessToken'
+https://www.inb.joyodev.chance.co.jp/api/v1/accounts?client_id=M-JOYO-Re-0100&uuid=UUID20170905
+[{'HEADERVALUE': 'Bearer AAEOTS1KT1lPLVJlLTAxMDCxsxDlNQfmXe7HEKFOJCsp_0uTFcJliSM87IxeBc0v2HNAtetRO_LQai1zr5FUHB9MCQnMCjdTGMBNMq3w3eLIQbQq0_EGZcrNLIkSunsPUBoME7E1mxq8nenTLXq0AcBE82WvvqSGI2KTtlI2YXMBTbEp5A6GUyWikYemgR5pQJlXc7ih5DnyNunLtXGMzxRfXzc_o341iwsn80cr0-LRvhQY21e5uEZ--lqbhzT59Tdz8E7GeSA_OFULqLO-jkw', 'HEADERKEY': 'Authorization'}]
+
+********************
+CaseInsensitiveDict({'Authorization': 'Bearer AAEOTS1KT1lPLVJlLTAxMDCxsxDlNQfmXe7HEKFOJCsp_0uTFcJliSM87IxeBc0v2HNAtetRO_LQai1zr5FUHB9MCQnMCjdTGMBNMq3w3eLIQbQq0_EGZcrNLIkSunsPUBoME7E1mxq8nenTLXq0AcBE82WvvqSGI2KTtlI2YXMBTbEp5A6GUyWikYemgR5pQJlXc7ih5DnyNunLtXGMzxRfXzc_o341iwsn80cr0-LRvhQY21e5uEZ--lqbhzT59Tdz8E7GeSA_OFULqLO-jkw', 'Accept': '*/*', 'User-Agent': 'python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic', 'Accept-Encoding': 'gzip, deflate, compress'})
+Authorization=Bearer AAEOTS1KT1lPLVJlLTAxMDCxsxDlNQfmXe7HEKFOJCsp_0uTFcJliSM87IxeBc0v2HNAtetRO_LQai1zr5FUHB9MCQnMCjdTGMBNMq3w3eLIQbQq0_EGZcrNLIkSunsPUBoME7E1mxq8nenTLXq0AcBE82WvvqSGI2KTtlI2YXMBTbEp5A6GUyWikYemgR5pQJlXc7ih5DnyNunLtXGMzxRfXzc_o341iwsn80cr0-LRvhQY21e5uEZ--lqbhzT59Tdz8E7GeSA_OFULqLO-jkw&Accept-Encoding=gzip, deflate, compress&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*
+********************
+action httpreq ->end
+[111.0, 1, 'HTTPREQ', '口座一覧リクエスト', 'GET', 'https://www.inb.joyodev.chance.co.jp/api/v1/accounts?client_id=M-JOYO-Re-0100&uuid=UUID20170905', 'Authorization=Bearer AAEOTS1KT1lPLVJlLTAxMDCxsxDlNQfmXe7HEKFOJCsp_0uTFcJliSM87IxeBc0v2HNAtetRO_LQai1zr5FUHB9MCQnMCjdTGMBNMq3w3eLIQbQq0_EGZcrNLIkSunsPUBoME7E1mxq8nenTLXq0AcBE82WvvqSGI2KTtlI2YXMBTbEp5A6GUyWikYemgR5pQJlXc7ih5DnyNunLtXGMzxRfXzc_o341iwsn80cr0-LRvhQY21e5uEZ--lqbhzT59Tdz8E7GeSA_OFULqLO-jkw&Accept-Encoding=gzip, deflate, compress&User-Agent=python-requests/2.2.1 CPython/3.4.3 Linux/4.4.0-104-generic&Accept=*/*', '', '200', '', '', '', '200', '', 'OK', '111.01.html']
+SQL sucess : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+['00000000000000', 1, 0, 1, 'Executing', 111.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+1 running :  Wed Apr  4 01:13:24 2018
+the JSON object must be str, not 'bytes'
+[111.0, 2, 'CheckJSON', '結果検証OK', '', '', '', '', '{"count":1,"accountsList":[{"accountID":"0000200001032313","accountName":"ﾃｽﾄ ｺｼﾞﾝｲﾝﾊﾞﾝｾﾞﾛ","accountNumber":"1032313","currencyCode":"003","accountKanjiName":"テスト\u3000コジンインバンゼロ","accountTypeName":"普通","branchNumber":"0000200","accountType":"00","branchName":"ﾅｶﾞﾚﾔﾏｵｵﾀｶﾉﾓﾘ","branchKanjiName":"流山おおたかの森"}]}', '', '', '', '\r\n\r\n\r\n\r\n{"count":1,"accountsList":[{"accountID":"0000200001032313","accountName":"ﾃｽﾄ ｺｼﾞﾝｲﾝﾊﾞﾝｾﾞﾛ","accountNumber":"1032313","currencyCode":"003","accountKanjiName":"テスト\u3000コジンインバンゼロ","accountTypeName":"普通","branchNumber":"0000200","accountType":"00","branchName":"ﾅｶﾞﾚﾔﾏｵｵﾀｶﾉﾓﾘ","branchKanjiName":"流山おおたかの森"}]}\r\n\r\n\r\n', TypeError("the JSON object must be str, not 'bytes'",), 'ERROR', '']
+'TypeError' object has no attribute '_get_object_id'
+SQL error : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+insert db error
+['00000000000000', 2, 1, 1, 'Executing', 111.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+2 running :  Wed Apr  4 01:13:24 2018
+the JSON object must be str, not 'bytes'
+[111.0, 3, 'CheckJSON', '結果検証NG', '', '', '', '', '{"count":1,"accountsList":[{"accountID":"0000200001032313","accountName":"ﾃｽﾄ ｺｼﾞﾝｲﾝﾊﾞﾝｾﾞﾛ","accountNumber":"1032310","currencyCode":"003","accountKanjiName":"テスト\u3000コジンインバンゼロ","accountTypeName":"普通","branchNumber":"0000200","accountType":"00","branchName":"ﾅｶﾞﾚﾔﾏｵｵﾀｶﾉﾓﾘ","branchKanjiName":"流山おおたかの森"}]}', '', '', '', '\r\n\r\n\r\n\r\n{"count":1,"accountsList":[{"accountID":"0000200001032313","accountName":"ﾃｽﾄ ｺｼﾞﾝｲﾝﾊﾞﾝｾﾞﾛ","accountNumber":"1032313","currencyCode":"003","accountKanjiName":"テスト\u3000コジンインバンゼロ","accountTypeName":"普通","branchNumber":"0000200","accountType":"00","branchName":"ﾅｶﾞﾚﾔﾏｵｵﾀｶﾉﾓﾘ","branchKanjiName":"流山おおたかの森"}]}\r\n\r\n\r\n', TypeError("the JSON object must be str, not 'bytes'",), 'ERROR', '']
+'TypeError' object has no attribute '_get_object_id'
+SQL error : insert into T_TEST_APIRESULTDETAIL (RESULTCASEID,ACTIONNO,ACTIONTYPE,DESCRIPTION,METHOD,REQURL,REQHEADER,REQBODY,EXPECTVALUE,XPATH,PROPNAME,RUNTIMEPARAMNAME,ACTUALVALUE,DETAIL,STATUS,FILENAME) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+insert db error
+['20180404011324', 3, 2, 1, 'Completed', 111.0]
+SQL sucess : update T_TEST_APIRESULTCASE set COMPLETETIMESTAMP = ?, EXECUTEDSTEPS = ?, NGSTEPS = ?, OKSTEPS = ?, STATUS = ? where ID = ?
+ApiCase.execute -> end
+['20180404011324', 2, 0, 2, 'Completed', 5098.0]
+SQL sucess : update T_TEST_APIRESULTMAIN set COMPLETETIMESTAMP = ?, EXECUTEDCASE = ? , OKCASE = ?, NGCASE = ? , STATUS = ? where ID = ?
+ApiPlan.execute -> end
+ApiAgent.execute -> end
+apimain run->end
+end API

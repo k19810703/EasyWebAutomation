@@ -11,11 +11,14 @@ spec:
     spec:
       containers:
       - name: webagentff
-        image: registry.ng.bluemix.net/mycontainter/webautofirefox:v1.0-2.53.1
+        image: registry.ng.bluemix.net/mycontainter/webautofirefox
         imagePullPolicy: Always
         env:
         - name: testbrowser
           value: Firefox
+        ports:
+        - containerPort: 5900
+          name: ffagentport
         volumeMounts:
         - name: inputfolder
           mountPath: /usr/src/public/input
