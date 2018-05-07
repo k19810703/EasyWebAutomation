@@ -6,5 +6,6 @@ rm -rf ./chanceauto/node_modules
 rm -rf ./chanceauto/.idea
 rm -rf ./chanceauto/output
 mkdir ./chanceauto/output
-docker build -t registry.ng.bluemix.net/mycontainter/webautoui:$1 --no-cache .
+docker build -t blockchain-03.cn.ibm.com:83/library/webautoui:$1 --no-cache .
+docker push blockchain-03.cn.ibm.com:83/library/webautoui:$1
 rm -rf ./chanceauto
